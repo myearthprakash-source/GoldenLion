@@ -1,15 +1,16 @@
 # Golden Lion Sport Center — Website
 
 A premium single-page website for Golden Lion Sport Center (Karate club).
-Black & gold theme, bilingual (English / Arabic), with scroll animations,
-3D tilt effects, an autoplay dojo video, WhatsApp click-to-chat, and social links.
+Black & gold theme, bilingual (English / Arabic), with a cinematic preloader,
+gold-dust particle hero, marquee ticker, scroll animations, 3D tilt effects,
+an autoplay dojo video, a mobile menu, WhatsApp click-to-chat (the contact
+form opens WhatsApp pre-filled), and social links.
 
 ## Structure
 
 ```
 golden-lion-website/
-├── index.html          ← the site (open directly in any browser)
-├── support.js          ← runtime that powers index.html
+├── index.html          ← the entire site, self-contained (open in any browser)
 └── assets/
     ├── logo.png
     ├── about-achievement.jpg
@@ -61,14 +62,14 @@ vercel
 
 ## Customizing contact details
 
-The WhatsApp number/message and the Instagram / Facebook / YouTube / TikTok
-links currently use placeholders. Edit them directly in `index.html`:
+Edit them directly in `index.html`:
 
-- **WhatsApp**: search for `whatsappNumber` and `whatsappMessage` defaults
-  (digits only, international format, e.g. `971501234567`).
-- **Social links**: search for `instagramUrl`, `facebookUrl`, `youtubeUrl`,
-  `tiktokUrl` and replace the placeholder URLs.
-- **Phone / email / address**: search for `+971 50 123 4567`,
+- **WhatsApp**: search for `wa.me/97466718487` (appears in the floating
+  button, the contact section, and the form-submit script) and replace the
+  number (digits only, international format).
+- **Social links**: the Facebook / YouTube / TikTok links are placeholders —
+  search for `facebook.com`, `youtube.com`, `tiktok.com` in the footer.
+- **Phone / email / address**: search for `+974 6671 8487`,
   `train@goldenlion.club`, and `Main Hall` in the contact section.
 
 ## Replacing photos / video
