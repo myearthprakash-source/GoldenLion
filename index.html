@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0A0A0B">
 <title>Golden Lion Sport Center — Karate Excellence</title>
 <meta name="description" content="Golden Lion Sport Center — traditional Shotokan karate for every age. Little Lions, Junior Warriors, Adult Karate and an elite Competition Squad. Book your free trial class.">
 <link rel="icon" type="image/png" href="assets/logo.png">
@@ -52,6 +53,9 @@ a{-webkit-tap-highlight-color:transparent}
 @keyframes glwa{0%{box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 10px 30px rgba(0,0,0,.4),0 0 0 0 rgba(37,211,102,0)}}
 @keyframes glblink{0%,100%{opacity:1}50%{opacity:.25}}
 @keyframes glload{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes glword{from{opacity:0;transform:translateY(70%) rotateX(-85deg)}to{opacity:1;transform:translateY(0) rotateX(0)}}
+@keyframes glcoin{0%,100%{transform:rotateY(-16deg)}50%{transform:rotateY(16deg)}}
+@keyframes glripple{from{transform:scale(.15);opacity:.65}to{transform:scale(1);opacity:0}}
 
 /* ============ PRELOADER ============ */
 .gl-loader{position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:26px;background:var(--bg);transition:opacity .7s ease,visibility .7s ease}
@@ -118,13 +122,17 @@ a{-webkit-tap-highlight-color:transparent}
 .gl-reveal.gl-in{opacity:1;transform:none}
 .gl-tilt{transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s ease;will-change:transform}
 .gl-magnetic{transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.gl-glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:5;opacity:0;background:radial-gradient(300px circle at var(--mx,50%) var(--my,50%),rgba(251,227,138,.16),transparent 62%);transition:opacity .35s ease}
+.gl-tilt:hover .gl-glare{opacity:1}
+.gl-ripple{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,255,255,.5),rgba(255,255,255,0) 65%);transform:scale(.15);animation:glripple .6s ease-out forwards;pointer-events:none}
+.gl-btn:active,.gl-cta:active,.gl-wa-btn:active,.gl-wa-fab:active{transform:scale(.96)}
 @media(prefers-reduced-motion:reduce){
   .gl-reveal{opacity:1!important;transform:none!important}
-  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  *{animation-duration:.01ms!important;animation-delay:0s!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 }
 
 /* ============ HERO ============ */
-.gl-hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:150px 6vw 110px;overflow:hidden}
+.gl-hero{position:relative;min-height:100vh;min-height:100svh;display:flex;align-items:center;padding:150px 6vw 110px;overflow:hidden}
 .gl-hero-glow{position:absolute;top:-10%;right:-5%;width:60vw;height:60vw;max-width:760px;max-height:760px;background:radial-gradient(circle,rgba(235,180,0,.16),rgba(235,180,0,0) 62%);pointer-events:none;animation:glpulse 6s ease-in-out infinite}
 .gl-hero-wash{position:absolute;inset:0;background:radial-gradient(120% 90% at 80% 10%,rgba(235,180,0,.05),rgba(10,10,11,0) 55%);pointer-events:none}
 .gl-watermark{position:absolute;right:-6vw;bottom:-8vw;font-family:'Anton',sans-serif;font-size:42vw;line-height:.8;color:rgba(235,180,0,.035);pointer-events:none;user-select:none;will-change:transform}
@@ -133,11 +141,14 @@ a{-webkit-tap-highlight-color:transparent}
 .gl-badge{display:inline-flex;align-items:center;gap:11px;padding:7px 15px;border:1px solid rgba(235,180,0,.32);border-radius:100px;margin-bottom:30px;white-space:nowrap;animation:glrise .7s ease both}
 .gl-badge b{width:6px;height:6px;border-radius:50%;background:var(--gold);box-shadow:0 0 10px var(--gold)}
 .gl-badge span{font-family:'Archivo',sans-serif;font-weight:600;font-size:11px;letter-spacing:.26em;color:var(--gold)}
-.gl-h1{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(56px,8vw,120px);line-height:.92;letter-spacing:.01em;color:var(--ink);text-transform:uppercase;animation:glrise .8s ease both .05s}
+.gl-h1{font-family:'Anton',sans-serif;font-weight:400;font-size:clamp(50px,8vw,120px);line-height:.92;letter-spacing:.01em;color:var(--ink);text-transform:uppercase}
+.gl-h1 .gl-w{display:inline-block;perspective:700px}
+.gl-h1 .gl-w i{display:inline-block;font-style:normal;transform-origin:50% 100%;animation:glword 1s cubic-bezier(.16,1,.3,1) both}
 .gl-hero-ar{font-family:'Cairo',sans-serif;font-weight:700;font-size:clamp(18px,2.2vw,26px);color:var(--gold);margin-top:18px;animation:glrise .8s ease both .12s}
 .gl-hero-p{max-width:430px;font-size:16px;line-height:1.7;color:var(--mut);margin-top:20px;animation:glrise .8s ease both .18s}
 .gl-hero-btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:34px;animation:glrise .8s ease both .24s}
-.gl-emblem{display:flex;justify-content:center;align-items:center;position:relative;animation:glrise 1s ease both .2s}
+.gl-emblem{display:flex;justify-content:center;align-items:center;position:relative;perspective:1000px;animation:glrise 1s ease .2s backwards}
+.gl-coin{transform-style:preserve-3d;animation:glcoin 10s ease-in-out infinite;will-change:transform}
 .gl-ring1,.gl-ring2,.gl-ring3{position:absolute;border-radius:50%;pointer-events:none}
 .gl-ring1{width:115%;height:115%;border:1px solid rgba(235,180,0,.18)}
 .gl-ring2{width:135%;height:135%;border:1px dashed rgba(235,180,0,.14);animation:glspin 40s linear infinite}
@@ -250,7 +261,7 @@ a{-webkit-tap-highlight-color:transparent}
 .gl-form-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .gl-field{display:flex;flex-direction:column;gap:7px}
 .gl-field span{font-family:'Archivo',sans-serif;font-size:11px;letter-spacing:.14em;color:var(--mut2)}
-.gl-field input,.gl-field select,.gl-field textarea{background:var(--bg);border:1px solid rgba(255,255,255,.12);border-radius:3px;padding:13px 14px;color:var(--ink);font-family:'Manrope',sans-serif;font-size:14px;outline:none;transition:border-color .3s ease,box-shadow .3s ease}
+.gl-field input,.gl-field select,.gl-field textarea{background:var(--bg);border:1px solid rgba(255,255,255,.12);border-radius:3px;padding:13px 14px;color:var(--ink);font-family:'Manrope',sans-serif;font-size:16px;outline:none;transition:border-color .3s ease,box-shadow .3s ease}
 .gl-field input:focus,.gl-field select:focus,.gl-field textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(235,180,0,.12)}
 .gl-field textarea{resize:vertical}
 
@@ -269,27 +280,53 @@ a{-webkit-tap-highlight-color:transparent}
 .gl-legalbar span{font-size:12.5px;color:var(--dim)}
 
 /* ============ FABS ============ */
-.gl-wa-fab{position:fixed;right:22px;bottom:22px;z-index:60;display:flex;align-items:center;text-decoration:none;background:var(--wa);border-radius:100px;padding:15px;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:glwa 2.6s ease-out infinite;transition:transform .3s cubic-bezier(.16,1,.3,1)}
+.gl-wa-fab{position:fixed;right:22px;bottom:calc(22px + env(safe-area-inset-bottom,0px));z-index:60;display:flex;align-items:center;text-decoration:none;background:var(--wa);border-radius:100px;padding:15px;box-shadow:0 10px 30px rgba(0,0,0,.4);animation:glwa 2.6s ease-out infinite;transition:transform .3s cubic-bezier(.16,1,.3,1)}
 .gl-wa-fab:hover{transform:scale(1.07)}
 .gl-wa-label{max-width:0;opacity:0;overflow:hidden;white-space:nowrap;color:#fff;font-family:'Archivo',sans-serif;font-weight:800;font-size:13px;letter-spacing:.06em;transition:max-width .4s ease,opacity .3s ease,margin .3s ease}
 .gl-wa-fab:hover .gl-wa-label{max-width:200px;opacity:1;margin-left:12px}
-.gl-top{position:fixed;right:26px;bottom:96px;z-index:60;width:46px;height:46px;border:1px solid var(--line2);border-radius:50%;background:rgba(10,10,11,.7);backdrop-filter:blur(6px);color:var(--gold);font-size:18px;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .4s ease,visibility .4s ease,transform .4s ease}
+.gl-top{position:fixed;right:26px;bottom:calc(96px + env(safe-area-inset-bottom,0px));z-index:60;width:46px;height:46px;border:1px solid var(--line2);border-radius:50%;background:rgba(10,10,11,.7);backdrop-filter:blur(6px);color:var(--gold);font-size:18px;cursor:pointer;opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .4s ease,visibility .4s ease,transform .4s ease}
 .gl-top.gl-show{opacity:1;visibility:visible;transform:none}
 .gl-top:hover{background:rgba(235,180,0,.14)}
 
 /* ============ RESPONSIVE ============ */
 @media(max-width:980px){.gl-programs{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:860px){
-  .gl-herogrid{grid-template-columns:1fr}
-  .gl-emblem{display:none}
+  .gl-hero{flex-direction:column;justify-content:center;padding:115px 6vw 0}
+  .gl-herogrid{grid-template-columns:1fr;gap:0}
+  .gl-emblem{margin:40px auto 6px}
+  .gl-emblem img{width:min(45vw,215px)}
+  .gl-watermark{font-size:72vw;right:-18vw;bottom:-4vw}
+  .gl-statbar{position:static;width:calc(100% + 12vw);margin:46px -6vw 0}
   .gl-statgrid{grid-template-columns:repeat(2,1fr)}
-  .gl-about,.gl-contact-grid{grid-template-columns:1fr!important}
-  .gl-pillars{grid-template-columns:1fr}
+  .gl-stat{padding:18px 12px;border-bottom:1px solid rgba(235,180,0,.08)}
+  .gl-stat-num{font-size:27px}
+  .gl-section{padding:84px 6vw}
+  .gl-about,.gl-contact-grid{grid-template-columns:1fr!important;gap:44px!important}
+  .gl-pillars{grid-template-columns:1fr;margin-top:64px}
+  .gl-quote{padding:96px 6vw}
 }
 @media(max-width:560px){
+  .gl-nav{padding:14px 5vw}
+  .gl-links{gap:14px}
+  .gl-links .gl-cta{display:none}
+  .gl-h1{font-size:clamp(42px,12.5vw,58px)}
+  .gl-badge span{font-size:9.5px;letter-spacing:.18em}
+  .gl-hero-btns{margin-top:28px}
+  .gl-hero-btns .gl-btn{flex:1 1 100%;text-align:center}
   .gl-programs,.gl-gallery,.gl-form-2{grid-template-columns:1fr}
-  .gl-sched-row{grid-template-columns:64px 1fr}
-  .gl-sess{min-width:130px;flex:1}
+  .gl-prog-card>p{min-height:0}
+  .gl-sched-row{grid-template-columns:56px 1fr}
+  .gl-sched-day{font-size:17px}
+  .gl-sched-cells{padding:12px;gap:8px}
+  .gl-sess{min-width:0;flex:1 1 100%}
+  .gl-marquee-track span{font-size:17px}
+  .gl-team img{aspect-ratio:4/3}
+  .gl-team figcaption{padding:18px 20px}
+  .gl-team-name{font-size:18px}
+  .gl-form{padding:26px 18px}
+  .gl-oss{padding:12px 16px}
+  .gl-oss b{font-size:24px}
+  .gl-footer{padding:50px 6vw 36px}
 }
 </style>
 </head>
@@ -354,7 +391,7 @@ a{-webkit-tap-highlight-color:transparent}
   <div class="gl-herogrid">
     <div>
       <div class="gl-badge"><b></b><span>EST. 2014 · KARATE EXCELLENCE</span></div>
-      <h1 class="gl-h1">Forge the<br><span class="gl-shimmer">Golden Lion</span><br>Within</h1>
+      <h1 class="gl-h1"><span class="gl-w"><i style="animation-delay:.4s">Forge</i></span> <span class="gl-w"><i style="animation-delay:.5s">the</i></span><br><span class="gl-w"><i class="gl-shimmer" style="animation-delay:.6s">Golden</i></span> <span class="gl-w"><i class="gl-shimmer" style="animation-delay:.7s">Lion</i></span><br><span class="gl-w"><i style="animation-delay:.8s">Within</i></span></h1>
       <p class="gl-hero-ar" dir="rtl">جولدن ليون سبورت سنتر</p>
       <p class="gl-hero-p">Where discipline becomes power. Traditional karate training for every age — from first white belt to championship podium.</p>
       <div class="gl-hero-btns">
@@ -366,7 +403,7 @@ a{-webkit-tap-highlight-color:transparent}
       <div class="gl-ring1"></div>
       <div class="gl-ring2"></div>
       <div class="gl-ring3"></div>
-      <img src="assets/logo.png" alt="Golden Lion Sport Center">
+      <div class="gl-coin"><img src="assets/logo.png" alt="Golden Lion Sport Center"></div>
     </div>
   </div>
 
@@ -757,39 +794,67 @@ a{-webkit-tap-highlight-color:transparent}
   var track = document.getElementById('glMarqueeTrack');
   if (track) track.innerHTML += track.innerHTML;
 
-  /* ---- Gold dust particles (hero) ---- */
+  /* ---- 3D gold particle vortex (hero) ----
+     True perspective projection: particles orbit in 3D space, depth drives
+     size + brightness. Camera follows the mouse on desktop and the
+     gyroscope on phones (where the browser allows it without a prompt). */
   var canvas = document.getElementById('glParticles');
   if (canvas && !reduce) {
     var ctx = canvas.getContext('2d');
-    var parts = [];
+    var DPR = Math.min(window.devicePixelRatio || 1, 2);
+    var W = 0, H = 0, CX = 0, CY = 0, FOV = 430;
     var sizeCanvas = function(){
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      W = canvas.offsetWidth; H = canvas.offsetHeight;
+      canvas.width = W * DPR; canvas.height = H * DPR;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      CX = W * (W > 860 ? 0.7 : 0.5);
+      CY = H * 0.42;
     };
     sizeCanvas();
     window.addEventListener('resize', sizeCanvas);
-    var COUNT = 42;
+    var COUNT = (window.innerWidth < 700) ? 70 : 130;
+    var parts = [];
     for (var i = 0; i < COUNT; i++) {
       parts.push({
-        x: Math.random(), y: Math.random(),
-        r: Math.random() * 1.8 + .4,
-        vx: (Math.random() - .5) * .00025,
-        vy: -(Math.random() * .0005 + .0002),
-        a: Math.random() * .5 + .12,
+        ang: Math.random() * Math.PI * 2,
+        rad: 90 + Math.random() * 300,
+        y: (Math.random() - .5) * 560,
+        r: Math.random() * 1.6 + .5,
+        sp: .0015 + Math.random() * .0025,
+        dy: -(.12 + Math.random() * .3),
+        a: .25 + Math.random() * .6,
         tw: Math.random() * Math.PI * 2
       });
     }
-    var drawParts = function(t){
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var camT = 0, camL = 0, liftT = 0, liftL = 0;
+    window.addEventListener('mousemove', function(e){
+      camT = (e.clientX / (window.innerWidth || 1) - .5) * 1.2;
+      liftT = (e.clientY / vh() - .5) * 1.2;
+    });
+    window.addEventListener('deviceorientation', function(e){
+      if (e.gamma == null) return;
+      camT = Math.max(-1, Math.min(1, e.gamma / 35));
+      liftT = Math.max(-1, Math.min(1, (e.beta - 40) / 35));
+    });
+    var drawParts = function(){
+      camL += (camT - camL) * .04;
+      liftL += (liftT - liftL) * .04;
+      ctx.clearRect(0, 0, W, H);
       for (var i = 0; i < parts.length; i++) {
         var p = parts[i];
-        p.x += p.vx; p.y += p.vy; p.tw += .012;
-        if (p.y < -0.02) { p.y = 1.02; p.x = Math.random(); }
-        if (p.x < -0.02) p.x = 1.02; if (p.x > 1.02) p.x = -0.02;
-        var alpha = p.a * (0.6 + 0.4 * Math.sin(p.tw));
+        p.ang += p.sp; p.y += p.dy; p.tw += .015;
+        if (p.y < -300) p.y = 300;
+        var x3 = Math.cos(p.ang + camL * .6) * p.rad;
+        var z3 = Math.sin(p.ang + camL * .6) * p.rad;
+        var s = FOV / (FOV + z3 + 340);
+        var x2 = CX + x3 * s;
+        var y2 = CY + (p.y + liftL * 70) * s;
+        var alpha = p.a * (.55 + .45 * Math.sin(p.tw)) * s * s;
         ctx.beginPath();
-        ctx.arc(p.x * canvas.width, p.y * canvas.height, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = 'rgba(235,180,0,' + alpha.toFixed(3) + ')';
+        ctx.arc(x2, y2, p.r * s * 2.1, 0, Math.PI * 2);
+        ctx.fillStyle = (s > .92)
+          ? 'rgba(251,227,138,' + Math.min(1, alpha * 1.3).toFixed(3) + ')'
+          : 'rgba(235,180,0,' + alpha.toFixed(3) + ')';
         ctx.fill();
       }
       requestAnimationFrame(drawParts);
@@ -826,10 +891,16 @@ a{-webkit-tap-highlight-color:transparent}
     });
   }
 
-  /* ---- 3D tilt ---- */
+  /* ---- 3D tilt + light glare ---- */
   if (!reduce && hover) {
     document.querySelectorAll('.gl-prog-card, #coaches figure, .gl-gallery figure, .gl-about-img').forEach(function(el){
       el.classList.add('gl-tilt');
+      var glare = null;
+      if (el.tagName !== 'IMG') {
+        glare = document.createElement('div');
+        glare.className = 'gl-glare';
+        el.appendChild(glare);
+      }
       var max = el.classList.contains('gl-prog-card') ? 9 : 6;
       el.addEventListener('mousemove', function(e){
         var r = el.getBoundingClientRect();
@@ -837,22 +908,31 @@ a{-webkit-tap-highlight-color:transparent}
         var py = (e.clientY - r.top) / r.height - 0.5;
         el.style.transform = 'perspective(900px) rotateX(' + (-py * max).toFixed(2) + 'deg) rotateY(' + (px * max).toFixed(2) + 'deg) translateY(-6px)';
         el.style.boxShadow = (-px * 24).toFixed(0) + 'px ' + (py * 22 + 30).toFixed(0) + 'px 60px rgba(0,0,0,.5)';
+        if (glare) {
+          glare.style.setProperty('--mx', ((px + .5) * 100).toFixed(1) + '%');
+          glare.style.setProperty('--my', ((py + .5) * 100).toFixed(1) + '%');
+        }
       });
       el.addEventListener('mouseleave', function(){ el.style.transform = ''; el.style.boxShadow = ''; });
     });
   }
 
-  /* ---- Parallax (emblem + watermark) ---- */
+  /* ---- Parallax (emblem + watermark) + hero scroll fade ---- */
   if (!reduce) {
     var emblem = document.getElementById('glEmblem');
     var wm = document.getElementById('glWatermark');
+    var heroGrid = document.querySelector('.gl-herogrid');
     var ticking = false;
     window.addEventListener('scroll', function(){
       if (ticking) return; ticking = true;
       requestAnimationFrame(function(){
         var y = window.scrollY || 0;
         if (emblem) emblem.style.transform = 'translateY(' + (y * 0.08).toFixed(1) + 'px)';
-        if (wm) wm.style.transform = 'translateY(' + (y * -0.06).toFixed(1) + 'px)';
+        if (wm) wm.style.transform = 'translateY(' + (y * -0.06).toFixed(1) + 'px) rotate(' + (y * 0.008).toFixed(2) + 'deg)';
+        if (heroGrid) {
+          var hp = Math.min(1, y / (vh() * 0.85));
+          heroGrid.style.opacity = (1 - hp * 0.6).toFixed(3);
+        }
         ticking = false;
       });
     }, { passive: true });
@@ -900,6 +980,23 @@ a{-webkit-tap-highlight-color:transparent}
         el.style.transform = 'translate(' + (mx * 0.25).toFixed(1) + 'px,' + (my * 0.35).toFixed(1) + 'px)';
       });
       el.addEventListener('mouseleave', function(){ el.style.transform = ''; });
+    });
+  }
+
+  /* ---- Tap ripple on buttons ---- */
+  if (!reduce) {
+    document.querySelectorAll('.gl-btn, .gl-cta').forEach(function(el){
+      el.addEventListener('pointerdown', function(e){
+        var r = el.getBoundingClientRect();
+        var d = Math.max(r.width, r.height) * 2.2;
+        var s = document.createElement('span');
+        s.className = 'gl-ripple';
+        s.style.width = s.style.height = d + 'px';
+        s.style.left = (e.clientX - r.left - d / 2) + 'px';
+        s.style.top = (e.clientY - r.top - d / 2) + 'px';
+        el.appendChild(s);
+        setTimeout(function(){ if (s.parentNode) s.parentNode.removeChild(s); }, 650);
+      });
     });
   }
 
