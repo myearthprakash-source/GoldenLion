@@ -1,10 +1,13 @@
 # Golden Lion Sport Center — Website
 
 A premium single-page website for Golden Lion Sport Center (Karate club).
-Black & gold theme, bilingual (English / Arabic), with a cinematic preloader,
-gold-dust particle hero, marquee ticker, scroll animations, 3D tilt effects,
-an autoplay dojo video, a mobile menu, WhatsApp click-to-chat (the contact
-form opens WhatsApp pre-filled), and social links.
+Black & gold theme, bilingual (English / Arabic), fully mobile-first, with a
+cinematic preloader, a true-3D gold particle vortex in the hero (mouse-driven
+on desktop, gyroscope-driven on phones), a 3D coin-spin emblem, word-by-word
+3D headline reveal, marquee ticker, scroll animations, 3D tilt + light-glare
+cards, tap ripples, an autoplay dojo video, a mobile menu, WhatsApp
+click-to-chat (the contact form opens WhatsApp pre-filled), and social links.
+All effects respect `prefers-reduced-motion` — no dependencies, no build step.
 
 ## Structure
 
