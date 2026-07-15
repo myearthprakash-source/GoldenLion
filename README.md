@@ -12,13 +12,21 @@ golden-lion-website/
 ├── support.js          ← runtime that powers index.html
 └── assets/
     ├── logo.png
-    ├── about-achievement.jpg
-    ├── team.jpg
-    ├── kids.jpg
-    ├── grading.jpg
+    ├── founder.jpg              ← Founder & Head Coach portrait (centerpiece)
+    ├── founder-group.jpg        ← used in the About section
+    ├── coaches-spar.jpg / founder-spar.jpg / founder-student.jpg   ← "Meet the senseis"
+    ├── student-*.jpg            ← gallery (kid, blackbelt, jersey, kick, kata, red)
+    ├── tournament1–9.jpg        ← "Built for the arena" (Karate1 Premier League)
     ├── video-poster.png
-    └── dojo-intro.mp4
+    ├── dojo-intro.mp4
+    └── new asset/               ← original untouched uploads (large RAW/MP4 — not used by the site)
 ```
+
+## Sections
+
+Hero · About · **Founder & Head Coach** (centered feature built around `founder.jpg`) ·
+Video · Programs · Meet the Senseis · Gallery · **Built for the Arena** (competition) ·
+Schedule · Contact.
 
 It is a **static site** — no build step, no dependencies to install.
 
@@ -79,5 +87,13 @@ Drop your own files into `assets/` using the **same filenames**, or update the
 
 ## Fonts
 
-Fonts load from Google Fonts (Anton, Archivo, Manrope, Cairo) over the internet.
-No setup required.
+Brand fonts — **Myriad Pro** (English) and **GE Dinar One** (Arabic). Both are
+licensed fonts, so they are *self-hosted*: drop the files into `assets/fonts/`
+using the names in that folder's `README.txt` and they activate automatically.
+
+Until the licensed files are added, the site falls back to the closest free
+web fonts loaded from Google Fonts — **Source Sans 3** (a near-identical open
+Myriad Pro cousin) and **Cairo** for Arabic — so it already looks correct.
+
+Font stacks are defined once as CSS variables (`--gl-en`, `--gl-display`,
+`--gl-ar`) in the top `<style>` block of `index.html`.

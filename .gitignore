@@ -8,3 +8,7 @@ Thumbs.db
 
 # Node (not needed for this static site, but harmless)
 node_modules/
+
+# Original photo/video uploads (RAW .CR3 + large .mp4) — the site uses the
+# optimized copies in assets/*.jpg, so keep the ~150MB originals out of deploys.
+assets/new asset/

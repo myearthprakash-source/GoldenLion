@@ -10,11 +10,28 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800;900&family=Manrope:wght@400;500;600;700&family=Cairo:wght@600;700;900&display=swap" rel="stylesheet">
+<!-- Fallback web fonts: Source Sans 3 stands in for Myriad Pro (English); Cairo stands in for GE Dinar One (Arabic). -->
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800;900&family=Cairo:wght@400;500;600;700;900&display=swap" rel="stylesheet">
 <style>
+  /* ===== Brand fonts =====
+     English : Myriad Pro   (self-host files in assets/fonts/ — see that folder's README)
+     Arabic  : GE Dinar One (self-host files in assets/fonts/)
+     Until the licensed files are added, the stacks fall through to the closest
+     free web fonts (Source Sans 3 / Cairo), so the design already looks right. */
+  @font-face { font-family:'Myriad Pro'; src:url('assets/fonts/MyriadPro-Regular.woff2') format('woff2'), url('assets/fonts/MyriadPro-Regular.otf') format('opentype'); font-weight:400; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Myriad Pro'; src:url('assets/fonts/MyriadPro-Semibold.woff2') format('woff2'), url('assets/fonts/MyriadPro-Semibold.otf') format('opentype'); font-weight:600; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Myriad Pro'; src:url('assets/fonts/MyriadPro-Bold.woff2') format('woff2'), url('assets/fonts/MyriadPro-Bold.otf') format('opentype'); font-weight:700; font-style:normal; font-display:swap; }
+  @font-face { font-family:'Myriad Pro'; src:url('assets/fonts/MyriadPro-Black.woff2') format('woff2'), url('assets/fonts/MyriadPro-Black.otf') format('opentype'); font-weight:800 900; font-style:normal; font-display:swap; }
+  @font-face { font-family:'GE Dinar One'; src:url('assets/fonts/GEDinarOne-Medium.woff2') format('woff2'), url('assets/fonts/GEDinarOne-Medium.otf') format('opentype'); font-weight:400 600; font-style:normal; font-display:swap; }
+  @font-face { font-family:'GE Dinar One'; src:url('assets/fonts/GEDinarOne-Bold.woff2') format('woff2'), url('assets/fonts/GEDinarOne-Bold.otf') format('opentype'); font-weight:700 900; font-style:normal; font-display:swap; }
+  :root {
+    --gl-en: 'Myriad Pro', 'Source Sans 3', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --gl-display: 'Myriad Pro', 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+    --gl-ar: 'GE Dinar One', 'Cairo', 'Noto Sans Arabic', sans-serif;
+  }
   * { margin:0; padding:0; box-sizing:border-box; }
   html { scroll-behavior:smooth; }
-  body { background:#0A0A0B; }
+  body { background:#0A0A0B; font-family:var(--gl-en); }
   ::selection { background:#EBB400; color:#0A0A0B; }
   @keyframes glpulse { 0%,100%{opacity:.55} 50%{opacity:.9} }
   @keyframes glfloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
@@ -40,17 +57,20 @@
   .gl-coach-card:hover .gl-coach-img{ transform:scale(1.04) }
   @media (max-width:980px){ .gl-programs{ grid-template-columns:repeat(2,1fr) !important } }
   @media (max-width:860px){ .gl-about{ grid-template-columns:1fr !important } .gl-pillars{ grid-template-columns:1fr !important } .gl-coaches{ grid-template-columns:1fr !important } }
-  @media (max-width:560px){ .gl-programs{ grid-template-columns:1fr !important } .gl-gallery{ grid-template-columns:1fr !important } }
+  @media (max-width:860px){ .gl-arena{ grid-template-columns:1fr 1fr !important } .gl-arena-fig{ grid-column:auto !important } .gl-arena-fig img{ aspect-ratio:4/5 !important } }
+  @media (max-width:640px){ .gl-programs{ grid-template-columns:1fr !important } .gl-gallery{ grid-template-columns:1fr !important } .gl-gallery > figure{ grid-column:1 / -1 !important } .gl-arena{ grid-template-columns:1fr !important } .gl-arena-fig{ grid-column:1 / -1 !important } }
+  .gl-arena-fig{ transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s ease; }
+  .gl-arena-fig:hover{ transform:translateY(-4px); border-color:rgba(235,180,0,.45) !important; }
 </style>
 </helmet>
-<div style="background:#0A0A0B; color:#F4EFE4; font-family:'Manrope',sans-serif; overflow-x:hidden; position:relative;" ref="{{ onRoot }}">
+<div style="background:#0A0A0B; color:#F4EFE4; font-family:var(--gl-en); overflow-x:hidden; position:relative;" ref="{{ onRoot }}">
 
   <div class="gl-cglow" ref="{{ onGlow }}"></div>
 
   <!-- Floating WhatsApp click-to-chat -->
   <a class="gl-wa-fab" href="{{ waLink }}" target="_blank" rel="noopener" aria-label="Chat on WhatsApp" style="position:fixed; right:22px; bottom:22px; z-index:60; display:flex; align-items:center; text-decoration:none; background:#25D366; border-radius:100px; padding:15px; box-shadow:0 10px 30px rgba(0,0,0,.4); animation:glwa 2.6s ease-out infinite;">
     <svg width="26" height="26" viewBox="0 0 24 24" fill="#fff" style="flex:none; display:block;"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
-    <span class="gl-wa-label" style="max-width:0; opacity:0; overflow:hidden; white-space:nowrap; color:#fff; font-family:'Archivo',sans-serif; font-weight:800; font-size:13px; letter-spacing:.06em; transition:max-width .4s ease, opacity .3s ease, margin .3s ease;">CHAT WITH US</span>
+    <span class="gl-wa-label" style="max-width:0; opacity:0; overflow:hidden; white-space:nowrap; color:#fff; font-family:var(--gl-en); font-weight:800; font-size:13px; letter-spacing:.06em; transition:max-width .4s ease, opacity .3s ease, margin .3s ease;">CHAT WITH US</span>
   </a>
 
   <!-- ===== NAV ===== -->
@@ -58,15 +78,15 @@
     <a href="#top" style="display:flex; align-items:center; gap:13px; text-decoration:none;">
       <img src="assets/logo.png" alt="Golden Lion" style="width:46px; height:46px; display:block;">
       <span style="display:flex; flex-direction:column; line-height:1;">
-        <span style="font-family:'Archivo',sans-serif; font-weight:900; font-size:15px; letter-spacing:.14em; color:#F4EFE4;">GOLDEN LION</span>
-        <span style="font-family:'Archivo',sans-serif; font-weight:600; font-size:9.5px; letter-spacing:.42em; color:#EBB400; margin-top:3px;">SPORT CENTER</span>
+        <span style="font-family:var(--gl-en); font-weight:900; font-size:15px; letter-spacing:.14em; color:#F4EFE4;">GOLDEN LION</span>
+        <span style="font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.42em; color:#EBB400; margin-top:3px;">SPORT CENTER</span>
       </span>
     </a>
     <div style="display:flex; align-items:center; gap:38px;">
       <sc-for list="{{ navLinks }}" as="link" hint-placeholder-count="5">
-        <a href="{{ link.href }}" style="display:none; text-decoration:none; color:#C7C2B6; font-family:'Archivo',sans-serif; font-weight:600; font-size:13px; letter-spacing:.04em;" class="gl-navlink">{{ link.label }}</a>
+        <a href="{{ link.href }}" style="display:none; text-decoration:none; color:#C7C2B6; font-family:var(--gl-en); font-weight:600; font-size:13px; letter-spacing:.04em;" class="gl-navlink">{{ link.label }}</a>
       </sc-for>
-      <a href="#contact" class="gl-magnetic" style="text-decoration:none; font-family:'Archivo',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:11px 22px; border-radius:2px;">JOIN NOW</a>
+      <a href="#contact" class="gl-magnetic" style="text-decoration:none; font-family:var(--gl-en); font-weight:700; font-size:12.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:11px 22px; border-radius:2px;">JOIN NOW</a>
     </div>
   </nav>
 
@@ -76,25 +96,25 @@
     <div style="position:absolute; top:-10%; right:-5%; width:60vw; height:60vw; max-width:760px; max-height:760px; background:radial-gradient(circle, rgba(235,180,0,.16), rgba(235,180,0,0) 62%); pointer-events:none; animation:glpulse 6s ease-in-out infinite;"></div>
     <div style="position:absolute; inset:0; background:radial-gradient(120% 90% at 80% 10%, rgba(235,180,0,.05), rgba(10,10,11,0) 55%); pointer-events:none;"></div>
     <!-- giant watermark stripe echoing logo -->
-    <div class="gl-watermark" style="position:absolute; right:-6vw; bottom:-8vw; font-family:'Anton',sans-serif; font-size:42vw; line-height:.8; color:rgba(235,180,0,.035); pointer-events:none; user-select:none; will-change:transform;">獅</div>
+    <div class="gl-watermark" style="position:absolute; right:-6vw; bottom:-8vw; font-family:var(--gl-display); font-weight:800; font-size:42vw; line-height:.8; color:rgba(235,180,0,.035); pointer-events:none; user-select:none; will-change:transform;">獅</div>
 
     <div style="position:relative; z-index:2; max-width:1180px; width:100%; margin:0 auto; display:grid; grid-template-columns:1.25fr .9fr; gap:40px; align-items:center;" class="gl-herogrid">
       <!-- left: copy -->
       <div>
         <div style="display:inline-flex; align-items:center; gap:11px; padding:7px 15px; border:1px solid rgba(235,180,0,.32); border-radius:100px; margin-bottom:30px; white-space:nowrap; animation:glrise .7s ease both;">
           <span style="width:6px; height:6px; border-radius:50%; background:#EBB400; box-shadow:0 0 10px #EBB400;"></span>
-          <span style="font-family:'Archivo',sans-serif; font-weight:600; font-size:11px; letter-spacing:.26em; color:#EBB400;">EST. 2014 · KARATE EXCELLENCE</span>
+          <span style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.26em; color:#EBB400;">EST. 2014 · KARATE EXCELLENCE</span>
         </div>
-        <h1 style="font-family:'Anton',sans-serif; font-weight:400; font-size:clamp(56px,8vw,120px); line-height:.92; letter-spacing:.01em; color:#F4EFE4; text-transform:uppercase; animation:glrise .8s ease both .05s;">
+        <h1 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(56px,8vw,120px); line-height:.92; letter-spacing:.01em; color:#F4EFE4; text-transform:uppercase; animation:glrise .8s ease both .05s;">
           Forge the<br>
           <span style="background:linear-gradient(110deg,#B6831A 0%,#FBE38A 25%,#FFF7DA 50%,#FBE38A 75%,#B6831A 100%); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:glshimmer 5s linear infinite;">Golden Lion</span><br>
           Within
         </h1>
-        <p dir="rtl" style="font-family:'Cairo',sans-serif; font-weight:700; font-size:clamp(18px,2.2vw,26px); color:#EBB400; margin-top:18px; animation:glrise .8s ease both .12s;">جولدن ليون سبورت سنتر</p>
+        <p dir="rtl" style="font-family:var(--gl-ar); font-weight:700; font-size:clamp(18px,2.2vw,26px); color:#EBB400; margin-top:18px; animation:glrise .8s ease both .12s;">جولدن ليون سبورت سنتر</p>
         <p style="max-width:430px; font-size:16px; line-height:1.7; color:#A9A498; margin-top:20px; animation:glrise .8s ease both .18s;">Where discipline becomes power. Traditional karate training for every age — from first white belt to championship podium.</p>
         <div style="display:flex; flex-wrap:wrap; gap:14px; margin-top:34px; animation:glrise .8s ease both .24s;">
-          <a href="#contact" class="gl-magnetic" style="text-decoration:none; font-family:'Archivo',sans-serif; font-weight:700; font-size:13px; letter-spacing:.08em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:16px 32px; border-radius:2px;">BOOK A FREE TRIAL →</a>
-          <a href="#programs" class="gl-magnetic" style="text-decoration:none; font-family:'Archivo',sans-serif; font-weight:700; font-size:13px; letter-spacing:.08em; color:#F4EFE4; border:1px solid rgba(244,239,228,.24); padding:16px 32px; border-radius:2px;">VIEW PROGRAMS</a>
+          <a href="#contact" class="gl-magnetic" style="text-decoration:none; font-family:var(--gl-en); font-weight:700; font-size:13px; letter-spacing:.08em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:16px 32px; border-radius:2px;">BOOK A FREE TRIAL →</a>
+          <a href="#programs" class="gl-magnetic" style="text-decoration:none; font-family:var(--gl-en); font-weight:700; font-size:13px; letter-spacing:.08em; color:#F4EFE4; border:1px solid rgba(244,239,228,.24); padding:16px 32px; border-radius:2px;">VIEW PROGRAMS</a>
         </div>
       </div>
       <!-- right: emblem -->
@@ -110,8 +130,8 @@
       <div style="max-width:1180px; margin:0 auto; display:grid; grid-template-columns:repeat(4,1fr);" class="gl-statgrid">
         <sc-for list="{{ heroStats }}" as="s" hint-placeholder-count="4">
           <div style="padding:22px 6vw; text-align:center; border-left:1px solid rgba(235,180,0,.1);">
-            <div class="gl-stat-num" data-num="{{ s.num }}" data-suffix="{{ s.suffix }}" style="font-family:'Anton',sans-serif; font-size:34px; color:#EBB400; line-height:1;">{{ s.num }}{{ s.suffix }}</div>
-            <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10.5px; letter-spacing:.2em; color:#8E8A80; margin-top:8px;">{{ s.label }}</div>
+            <div class="gl-stat-num" data-num="{{ s.num }}" data-suffix="{{ s.suffix }}" style="font-family:var(--gl-display); font-weight:800; font-size:34px; color:#EBB400; line-height:1;">{{ s.num }}{{ s.suffix }}</div>
+            <div style="font-family:var(--gl-en); font-weight:600; font-size:10.5px; letter-spacing:.2em; color:#8E8A80; margin-top:8px;">{{ s.label }}</div>
           </div>
         </sc-for>
       </div>
@@ -122,27 +142,27 @@
   <section id="about" style="position:relative; padding:120px 6vw; max-width:1180px; margin:0 auto;">
     <div class="gl-about" style="display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center;">
       <div>
-        <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:18px;">— OUR DOJO</div>
-        <h2 style="font-family:'Anton',sans-serif; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">More than a club.<br>A <span style="color:#EBB400;">way</span> of life.</h2>
+        <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:18px;">— OUR DOJO</div>
+        <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">More than a club.<br>A <span style="color:#EBB400;">way</span> of life.</h2>
         <p style="font-size:16px; line-height:1.8; color:#A9A498; margin-top:26px; max-width:520px;">For over a decade, Golden Lion Sport Center has shaped fighters and leaders. Our floor is a place where children find confidence, adults find strength, and athletes find the edge that wins medals.</p>
         <p style="font-size:16px; line-height:1.8; color:#A9A498; margin-top:16px; max-width:520px;">Rooted in traditional Shotokan karate and led by certified black-belt senseis, every grade earned here is earned for real.</p>
         <div style="display:flex; gap:14px; margin-top:32px; flex-wrap:wrap;">
           <div style="border:1px solid rgba(235,180,0,.22); border-radius:3px; padding:14px 20px;">
-            <div style="font-family:'Anton',sans-serif; font-size:26px; color:#EBB400;">WKF</div>
-            <div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:'Archivo',sans-serif; margin-top:4px;">AFFILIATED</div>
+            <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#EBB400;">WKF</div>
+            <div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:var(--gl-en); margin-top:4px;">AFFILIATED</div>
           </div>
           <div style="border:1px solid rgba(235,180,0,.22); border-radius:3px; padding:14px 20px;">
-            <div style="font-family:'Anton',sans-serif; font-size:26px; color:#EBB400;">100%</div>
-            <div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:'Archivo',sans-serif; margin-top:4px;">CERTIFIED COACHES</div>
+            <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#EBB400;">100%</div>
+            <div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:var(--gl-en); margin-top:4px;">CERTIFIED COACHES</div>
           </div>
         </div>
       </div>
       <div style="position:relative;">
         <div style="position:absolute; inset:-14px -14px auto auto; width:70%; height:70%; border:1px solid rgba(235,180,0,.3); border-radius:4px; z-index:0;"></div>
-        <img src="assets/about-achievement.jpg" class="gl-about-img" alt="Coaches presenting a grading certificate at Golden Lion" style="position:relative; z-index:1; display:block; width:100%; aspect-ratio:4/5; object-fit:cover; border-radius:4px; box-shadow:0 30px 70px rgba(0,0,0,.5);">
+        <img src="assets/founder-group.jpg" class="gl-about-img" alt="Head coach and instructor with a young student at Golden Lion Sport Center" style="position:relative; z-index:1; display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 20%; border-radius:4px; box-shadow:0 30px 70px rgba(0,0,0,.5);">
         <div style="position:absolute; left:-14px; bottom:-14px; z-index:2; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); color:#0A0A0B; padding:16px 22px; border-radius:3px;">
-          <div style="font-family:'Anton',sans-serif; font-size:30px; line-height:1;">OSS!</div>
-          <div style="font-family:'Cairo',sans-serif; font-weight:700; font-size:12px; margin-top:2px;">روح القتال</div>
+          <div style="font-family:var(--gl-display); font-weight:800; font-size:30px; line-height:1;">OSS!</div>
+          <div style="font-family:var(--gl-ar); font-weight:700; font-size:12px; margin-top:2px;">روح القتال</div>
         </div>
       </div>
     </div>
@@ -151,11 +171,61 @@
     <div class="gl-pillars" style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:90px;">
       <sc-for list="{{ pillars }}" as="p" hint-placeholder-count="3">
         <div style="border-top:2px solid #EBB400; padding-top:24px;">
-          <div style="font-family:'Anton',sans-serif; font-size:40px; color:rgba(235,180,0,.3); line-height:1;">{{ p.k }}</div>
-          <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; color:#F4EFE4; margin-top:12px; letter-spacing:.02em;">{{ p.t }}</h3>
+          <div style="font-family:var(--gl-display); font-weight:800; font-size:40px; color:rgba(235,180,0,.3); line-height:1;">{{ p.k }}</div>
+          <h3 style="font-family:var(--gl-en); font-weight:800; font-size:22px; color:#F4EFE4; margin-top:12px; letter-spacing:.02em;">{{ p.t }}</h3>
           <p style="font-size:14.5px; line-height:1.7; color:#A9A498; margin-top:10px;">{{ p.d }}</p>
         </div>
       </sc-for>
+    </div>
+  </section>
+
+  <!-- ===== FOUNDER / HEAD COACH (centerpiece) ===== -->
+  <section id="founder" style="position:relative; padding:120px 6vw 130px; overflow:hidden;">
+    <!-- ambient gold field -->
+    <div style="position:absolute; top:8%; left:50%; transform:translateX(-50%); width:80vw; height:80vw; max-width:900px; max-height:900px; background:radial-gradient(circle, rgba(235,180,0,.13), rgba(235,180,0,0) 60%); pointer-events:none; animation:glpulse 7s ease-in-out infinite;"></div>
+    <div style="position:absolute; left:50%; top:14%; transform:translate(-50%,-50%); font-family:var(--gl-display); font-weight:800; font-size:34vw; line-height:.8; color:rgba(235,180,0,.03); pointer-events:none; user-select:none;">獅</div>
+
+    <div style="position:relative; z-index:2; max-width:1120px; margin:0 auto; text-align:center;">
+      <div style="display:inline-flex; align-items:center; gap:11px; padding:7px 15px; border:1px solid rgba(235,180,0,.32); border-radius:100px; margin-bottom:22px;">
+        <span style="width:6px; height:6px; border-radius:50%; background:#EBB400; box-shadow:0 0 10px #EBB400;"></span>
+        <span style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.26em; color:#EBB400;">THE MAN BEHIND THE MAT</span>
+      </div>
+      <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(40px,5.4vw,74px); line-height:.96; color:#F4EFE4; text-transform:uppercase;">Founder &amp; <span style="background:linear-gradient(110deg,#B6831A,#FBE38A 30%,#FFF7DA 50%,#FBE38A 70%,#B6831A); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:glshimmer 5s linear infinite;">Head Coach</span></h2>
+      <p dir="rtl" style="font-family:var(--gl-ar); font-weight:700; font-size:clamp(15px,2vw,21px); color:#EBB400; margin-top:14px;">المؤسس والمدرب الأول</p>
+
+      <!-- centered portrait with concentric rings -->
+      <div style="position:relative; display:flex; justify-content:center; align-items:center; margin:46px auto 0; width:min(88vw,460px);">
+        <div style="position:absolute; width:132%; padding-bottom:132%; height:0; border:1px solid rgba(235,180,0,.10); border-radius:50%;"></div>
+        <div style="position:absolute; width:114%; padding-bottom:114%; height:0; border:1px solid rgba(235,180,0,.20); border-radius:50%;"></div>
+        <figure class="gl-founder-fig" style="position:relative; z-index:2; margin:0; width:100%; border-radius:10px; overflow:hidden; border:1px solid rgba(235,180,0,.34); box-shadow:0 40px 100px rgba(0,0,0,.65), 0 0 60px rgba(235,180,0,.10);">
+          <img src="assets/founder.jpg" alt="Founder and Head Coach of Golden Lion Sport Center" style="display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 12%;">
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 55%,rgba(10,10,11,.9)); pointer-events:none;"></div>
+          <figcaption style="position:absolute; left:0; right:0; bottom:0; padding:26px 24px 24px; text-align:center;">
+            <div style="font-family:var(--gl-en); font-weight:900; font-size:clamp(20px,3vw,26px); letter-spacing:.02em; color:#F4EFE4;">Head Sensei</div>
+            <div style="font-family:var(--gl-en); font-weight:600; font-size:11.5px; letter-spacing:.22em; color:#EBB400; margin-top:7px;">FOUNDER · SHOTOKAN BLACK BELT</div>
+          </figcaption>
+        </figure>
+        <!-- floating OSS badge -->
+        <div style="position:absolute; z-index:3; right:-2%; top:6%; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); color:#0A0A0B; padding:12px 16px; border-radius:4px; box-shadow:0 14px 34px rgba(0,0,0,.5); transform:rotate(3deg);">
+          <div style="font-family:var(--gl-display); font-weight:800; font-size:24px; line-height:1;">OSS!</div>
+          <div style="font-family:var(--gl-ar); font-weight:700; font-size:11px; margin-top:1px;">أوس</div>
+        </div>
+      </div>
+
+      <!-- quote -->
+      <p style="max-width:640px; margin:44px auto 0; font-family:var(--gl-en); font-size:clamp(17px,2.2vw,21px); line-height:1.7; color:#D8D3C7; font-weight:500;">
+        <span style="color:#EBB400; font-family:var(--gl-display); font-weight:800; font-size:1.4em; line-height:0; vertical-align:-.15em; margin-right:4px;">“</span>Every belt is earned on the floor. I don't build fighters — I build people who never quit.<span style="color:#EBB400; font-family:var(--gl-display); font-weight:800; font-size:1.4em; line-height:0; vertical-align:-.35em; margin-left:2px;">”</span>
+      </p>
+
+      <!-- credential chips -->
+      <div style="display:flex; flex-wrap:wrap; justify-content:center; gap:12px; margin-top:38px;">
+        <sc-for list="{{ founderCreds }}" as="c" hint-placeholder-count="4">
+          <div style="border:1px solid rgba(235,180,0,.24); border-radius:4px; padding:13px 20px; min-width:120px;">
+            <div style="font-family:var(--gl-display); font-weight:800; font-size:24px; color:#EBB400; line-height:1;">{{ c.k }}</div>
+            <div style="font-family:var(--gl-en); font-weight:600; font-size:10px; letter-spacing:.16em; color:#8E8A80; margin-top:6px;">{{ c.t }}</div>
+          </div>
+        </sc-for>
+      </div>
     </div>
   </section>
 
@@ -163,16 +233,16 @@
   <section id="video" style="position:relative; padding:110px 6vw; overflow:hidden;">
     <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:70vw; height:50vw; max-width:900px; max-height:600px; background:radial-gradient(circle, rgba(235,180,0,.10), rgba(235,180,0,0) 62%); pointer-events:none;"></div>
     <div style="position:relative; max-width:1080px; margin:0 auto; text-align:center;">
-      <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— WATCH</div>
-      <h2 style="font-family:'Anton',sans-serif; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Inside the dojo</h2>
+      <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— WATCH</div>
+      <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Inside the dojo</h2>
       <p style="font-size:16px; line-height:1.7; color:#A9A498; margin:18px auto 44px; max-width:520px;">Sweat, focus, kiai. A glimpse of a training night at Golden Lion Sport Center.</p>
       <div style="position:relative; width:100%; max-width:400px; margin:0 auto; border-radius:14px; overflow:hidden; border:1px solid rgba(235,180,0,.28); box-shadow:0 40px 90px rgba(0,0,0,.6);">
         <div style="position:absolute; inset:-1px; border-radius:14px; padding:1px; background:linear-gradient(135deg,rgba(251,227,138,.6),rgba(182,131,26,.2)); -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0); -webkit-mask-composite:xor; mask-composite:exclude; pointer-events:none; z-index:3;"></div>
         <video playsinline muted="{{ true }}" loop="{{ true }}" preload="auto" poster="assets/video-poster.png" ref="{{ onVideoRef }}" style="display:block; width:100%; aspect-ratio:9/16; background:#0A0A0B; object-fit:cover;"></video>
         <div ref="{{ onSpinnerRef }}" style="position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;">
-          <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:.18em; color:#EBB400; background:rgba(10,10,11,.55); padding:9px 16px; border-radius:100px; backdrop-filter:blur(4px);">LOADING VIDEO…</div>
+          <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.18em; color:#EBB400; background:rgba(10,10,11,.55); padding:9px 16px; border-radius:100px; backdrop-filter:blur(4px);">LOADING VIDEO…</div>
         </div>
-        <button ref="{{ onSoundRef }}" onClick="{{ toggleSound }}" aria-label="Toggle sound" style="position:absolute; right:14px; bottom:14px; z-index:4; display:flex; align-items:center; gap:8px; cursor:pointer; border:1px solid rgba(235,180,0,.45); background:rgba(10,10,11,.6); backdrop-filter:blur(6px); color:#F4EFE4; font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:.12em; padding:9px 14px; border-radius:100px;">
+        <button ref="{{ onSoundRef }}" onClick="{{ toggleSound }}" aria-label="Toggle sound" style="position:absolute; right:14px; bottom:14px; z-index:4; display:flex; align-items:center; gap:8px; cursor:pointer; border:1px solid rgba(235,180,0,.45); background:rgba(10,10,11,.6); backdrop-filter:blur(6px); color:#F4EFE4; font-family:var(--gl-en); font-weight:700; font-size:11px; letter-spacing:.12em; padding:9px 14px; border-radius:100px;">
           <span ref="{{ onSoundIconRef }}" style="font-size:14px; line-height:1;">🔇</span><span ref="{{ onSoundTextRef }}">TAP FOR SOUND</span>
         </button>
       </div>
@@ -184,8 +254,8 @@
     <div style="max-width:1180px; margin:0 auto;">
       <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px; margin-bottom:50px;">
         <div>
-          <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— TRAIN WITH US</div>
-          <h2 style="font-family:'Anton',sans-serif; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Programs for<br>every belt.</h2>
+          <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— TRAIN WITH US</div>
+          <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Programs for<br>every belt.</h2>
         </div>
         <p style="max-width:340px; font-size:15px; line-height:1.7; color:#A9A498;">From a four-year-old's first kiai to an elite athlete's title run — there's a place on our mat for you.</p>
       </div>
@@ -193,8 +263,8 @@
         <sc-for list="{{ programs }}" as="pr" hint-placeholder-count="4">
           <div class="gl-prog-card" style="position:relative; border:1px solid rgba(235,180,0,.14); border-radius:5px; padding:28px 24px 30px; background:linear-gradient(180deg,rgba(255,255,255,.02),rgba(255,255,255,0)); transition:transform .35s ease, border-color .35s ease; overflow:hidden;">
             <div style="height:5px; width:54px; border-radius:100px; background:{{ pr.belt }};"></div>
-            <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:10.5px; letter-spacing:.2em; color:#EBB400; margin-top:22px;">{{ pr.tag }}</div>
-            <h3 style="font-family:'Archivo',sans-serif; font-weight:800; font-size:23px; color:#F4EFE4; margin-top:8px; line-height:1.05;">{{ pr.name }}</h3>
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10.5px; letter-spacing:.2em; color:#EBB400; margin-top:22px;">{{ pr.tag }}</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:23px; color:#F4EFE4; margin-top:8px; line-height:1.05;">{{ pr.name }}</h3>
             <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:12px; min-height:72px;">{{ pr.desc }}</p>
             <div style="border-top:1px solid rgba(255,255,255,.07); margin-top:14px; padding-top:14px; display:flex; flex-direction:column; gap:9px;">
               <sc-for list="{{ pr.items }}" as="it" hint-placeholder-count="3">
@@ -212,46 +282,96 @@
   <!-- ===== COACHES ===== -->
   <section id="coaches" style="position:relative; padding:110px 6vw; max-width:1180px; margin:0 auto;">
     <div style="text-align:center; margin-bottom:46px;">
-      <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— LED BY MASTERS</div>
-      <h2 style="font-family:'Anton',sans-serif; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Meet the senseis</h2>
-      <p style="font-size:16px; line-height:1.7; color:#A9A498; margin:18px auto 0; max-width:560px;">A team of certified black-belt instructors — national competitors and dedicated mentors who lead every grade from white belt to Dan.</p>
+      <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— LED BY MASTERS</div>
+      <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Meet the senseis</h2>
+      <p style="font-size:16px; line-height:1.7; color:#A9A498; margin:18px auto 0; max-width:560px;">Certified black-belt instructors who train on the same floor they teach — leading every grade from a first white belt to Dan.</p>
     </div>
-    <figure style="position:relative; margin:0; border-radius:10px; overflow:hidden; border:1px solid rgba(235,180,0,.28); box-shadow:0 40px 90px rgba(0,0,0,.55);">
-      <img src="assets/team.jpg" alt="Golden Lion instructor team in front of the club banner" style="display:block; width:100%; aspect-ratio:16/9; object-fit:cover;">
-      <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 50%,rgba(10,10,11,.85)); pointer-events:none;"></div>
-      <figcaption style="position:absolute; left:0; right:0; bottom:0; display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:14px; padding:30px 34px;">
-        <div>
-          <div style="font-family:'Archivo',sans-serif; font-weight:800; font-size:22px; color:#F4EFE4;">The Golden Lion Coaching Team</div>
-          <div style="font-family:'Archivo',sans-serif; font-weight:600; font-size:12.5px; letter-spacing:.06em; color:#EBB400; margin-top:6px;">SHOTOKAN · KUMITE · KATA · COMPETITION</div>
-        </div>
-        <div style="display:flex; gap:10px; flex-wrap:wrap;">
-          <span style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.12em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:8px 14px; border-radius:2px;">BLACK BELTS</span>
-          <span style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.12em; color:#EBB400; border:1px solid rgba(235,180,0,.4); padding:8px 14px; border-radius:2px;">WKF CERTIFIED</span>
-        </div>
-      </figcaption>
-    </figure>
+    <div class="gl-coaches" style="display:grid; grid-template-columns:repeat(3,1fr); gap:18px;">
+      <sc-for list="{{ coachShots }}" as="cs" hint-placeholder-count="3">
+        <figure class="gl-coach-fig" style="position:relative; margin:0; border-radius:10px; overflow:hidden; border:1px solid rgba(235,180,0,.22); box-shadow:0 26px 60px rgba(0,0,0,.5);">
+          <img class="gl-coach-img" src="{{ cs.img }}" alt="{{ cs.alt }}" style="display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:{{ cs.pos }}; transition:transform .6s cubic-bezier(.16,1,.3,1);">
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 46%,rgba(10,10,11,.9)); pointer-events:none;"></div>
+          <figcaption style="position:absolute; left:0; right:0; bottom:0; padding:24px 22px;">
+            <div style="font-family:var(--gl-en); font-weight:800; font-size:18px; color:#F4EFE4; line-height:1.15;">{{ cs.t }}</div>
+            <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.16em; color:#EBB400; margin-top:8px;">{{ cs.tag }}</div>
+          </figcaption>
+        </figure>
+      </sc-for>
+    </div>
+    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap; margin-top:26px;">
+      <span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.12em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:9px 16px; border-radius:2px;">BLACK BELTS</span>
+      <span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.12em; color:#EBB400; border:1px solid rgba(235,180,0,.4); padding:9px 16px; border-radius:2px;">SHOTOKAN · WKF</span>
+      <span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.12em; color:#EBB400; border:1px solid rgba(235,180,0,.4); padding:9px 16px; border-radius:2px;">KUMITE · KATA</span>
+    </div>
   </section>
 
   <!-- ===== GALLERY ===== -->
   <section id="gallery" style="position:relative; padding:0 6vw 110px; max-width:1180px; margin:0 auto;">
     <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px; margin-bottom:34px;">
       <div>
-        <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— LIFE AT GOLDEN LION</div>
-        <h2 style="font-family:'Anton',sans-serif; font-size:clamp(34px,4.2vw,56px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Grades earned. Pride built.</h2>
+        <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— LIFE AT GOLDEN LION</div>
+        <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(34px,4.2vw,56px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Grades earned. Pride built.</h2>
       </div>
       <p style="max-width:340px; font-size:15px; line-height:1.7; color:#A9A498;">From a child's first yellow belt to grading day for the whole squad — these are the moments we train for.</p>
     </div>
-    <div class="gl-gallery" style="display:grid; grid-template-columns:1fr 1fr; gap:18px;">
-      <figure style="position:relative; margin:0; border-radius:8px; overflow:hidden; border:1px solid rgba(235,180,0,.16);">
-        <img src="assets/kids.jpg" alt="Junior karate class at Golden Lion" style="display:block; width:100%; aspect-ratio:4/5; object-fit:cover;">
-        <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 58%,rgba(10,10,11,.82));"></div>
-        <figcaption style="position:absolute; left:0; bottom:0; padding:22px 24px; font-family:'Archivo',sans-serif; font-weight:700; font-size:16px; color:#F4EFE4;">Little Lions <span style="color:#EBB400;">· Junior class</span></figcaption>
+    <div class="gl-gallery" style="display:grid; grid-template-columns:repeat(6,1fr); gap:18px;">
+      <figure style="grid-column:span 6; position:relative; margin:0; border-radius:8px; overflow:hidden; border:1px solid rgba(235,180,0,.16);">
+        <img src="assets/student-kick.jpg" alt="Young student throwing a high kick on the Golden Lion mat" style="display:block; width:100%; aspect-ratio:16/9; object-fit:cover; object-position:center 40%;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 55%,rgba(10,10,11,.82));"></div>
+        <figcaption style="position:absolute; left:0; bottom:0; padding:26px 28px; font-family:var(--gl-en); font-weight:800; font-size:20px; color:#F4EFE4;">Every kick, sharpened <span style="color:#EBB400; font-weight:600; font-size:15px;">· On the dojo floor</span></figcaption>
       </figure>
-      <figure style="position:relative; margin:0; border-radius:8px; overflow:hidden; border:1px solid rgba(235,180,0,.16);">
-        <img src="assets/grading.jpg" alt="Students passing their belt grading at Golden Lion" style="display:block; width:100%; aspect-ratio:4/5; object-fit:cover;">
-        <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 58%,rgba(10,10,11,.82));"></div>
-        <figcaption style="position:absolute; left:0; bottom:0; padding:22px 24px; font-family:'Archivo',sans-serif; font-weight:700; font-size:16px; color:#F4EFE4;">Grading Day <span style="color:#EBB400;">· Brown belts pass</span></figcaption>
+      <figure style="grid-column:span 2; position:relative; margin:0; border-radius:8px; overflow:hidden; border:1px solid rgba(235,180,0,.16);">
+        <img src="assets/student-kid.jpg" alt="Junior student in front of a Golden Lion heavy bag" style="display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 25%;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 58%,rgba(10,10,11,.85));"></div>
+        <figcaption style="position:absolute; left:0; bottom:0; padding:22px 22px; font-family:var(--gl-en); font-weight:700; font-size:16px; color:#F4EFE4;">Little Lions <span style="color:#EBB400;">· Juniors</span></figcaption>
       </figure>
+      <figure style="grid-column:span 2; position:relative; margin:0; border-radius:8px; overflow:hidden; border:1px solid rgba(235,180,0,.16);">
+        <img src="assets/student-blackbelt.jpg" alt="Teen student in fighting stance wearing a black belt" style="display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 20%;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 58%,rgba(10,10,11,.85));"></div>
+        <figcaption style="position:absolute; left:0; bottom:0; padding:22px 22px; font-family:var(--gl-en); font-weight:700; font-size:16px; color:#F4EFE4;">Black belt <span style="color:#EBB400;">· Earned</span></figcaption>
+      </figure>
+      <figure style="grid-column:span 2; position:relative; margin:0; border-radius:8px; overflow:hidden; border:1px solid rgba(235,180,0,.16);">
+        <img src="assets/student-jersey.jpg" alt="Student in Golden Lion team kit" style="display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center 20%;">
+        <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 58%,rgba(10,10,11,.85));"></div>
+        <figcaption style="position:absolute; left:0; bottom:0; padding:22px 22px; font-family:var(--gl-en); font-weight:700; font-size:16px; color:#F4EFE4;">Team kit <span style="color:#EBB400;">· Golden Lion</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ===== ARENA / COMPETITION ===== -->
+  <section id="arena" style="position:relative; padding:110px 6vw; background:linear-gradient(180deg,#0A0A0B,#101011 50%,#0A0A0B); overflow:hidden;">
+    <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:70vw; height:50vw; max-width:900px; max-height:600px; background:radial-gradient(circle, rgba(235,180,0,.08), rgba(235,180,0,0) 62%); pointer-events:none;"></div>
+    <div style="position:relative; max-width:1180px; margin:0 auto;">
+      <div style="text-align:center; margin-bottom:46px;">
+        <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— WHERE THE WORK GOES</div>
+        <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Built for the arena</h2>
+        <p style="font-size:16px; line-height:1.7; color:#A9A498; margin:18px auto 0; max-width:600px;">Our Competition Squad trains for the biggest stages in the sport — the WKF Karate1 Premier League and beyond. This is the standard we prepare for.</p>
+      </div>
+      <div class="gl-arena" style="display:grid; grid-template-columns:repeat(6,1fr); gap:16px;">
+        <figure class="gl-arena-fig" style="grid-column:span 4; position:relative; margin:0; border-radius:10px; overflow:hidden; border:1px solid rgba(235,180,0,.2);">
+          <img src="assets/tournament3.jpg" alt="Kumite exchange at the Karate1 Premier League" style="display:block; width:100%; aspect-ratio:16/10; object-fit:cover; object-position:center 35%;">
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 60%,rgba(10,10,11,.8));"></div>
+          <figcaption style="position:absolute; left:0; bottom:0; padding:24px 26px; font-family:var(--gl-en); font-weight:800; font-size:18px; color:#F4EFE4;">Karate1 Premier League <span style="color:#EBB400; font-weight:600; font-size:13px; letter-spacing:.08em;">· KUMITE</span></figcaption>
+        </figure>
+        <figure class="gl-arena-fig" style="grid-column:span 2; position:relative; margin:0; border-radius:10px; overflow:hidden; border:1px solid rgba(235,180,0,.2);">
+          <img src="assets/tournament5.jpg" alt="High kick in a Karate1 Premier League bout" style="display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center;">
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 60%,rgba(10,10,11,.8));"></div>
+          <figcaption style="position:absolute; left:0; bottom:0; padding:22px 22px; font-family:var(--gl-en); font-weight:800; font-size:16px; color:#F4EFE4;">The finish <span style="color:#EBB400; font-weight:600; font-size:12px;">· Ippon</span></figcaption>
+        </figure>
+        <figure class="gl-arena-fig" style="grid-column:span 2; position:relative; margin:0; border-radius:10px; overflow:hidden; border:1px solid rgba(235,180,0,.2);">
+          <img src="assets/tournament4.jpg" alt="Athletes facing off under the flags of the world" style="display:block; width:100%; aspect-ratio:4/5; object-fit:cover; object-position:center;">
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 60%,rgba(10,10,11,.8));"></div>
+          <figcaption style="position:absolute; left:0; bottom:0; padding:22px 22px; font-family:var(--gl-en); font-weight:800; font-size:16px; color:#F4EFE4;">On the tatami <span style="color:#EBB400; font-weight:600; font-size:12px;">· World stage</span></figcaption>
+        </figure>
+        <figure class="gl-arena-fig" style="grid-column:span 4; position:relative; margin:0; border-radius:10px; overflow:hidden; border:1px solid rgba(235,180,0,.2);">
+          <img src="assets/tournament6.jpg" alt="Spinning kick at the Karate1 Premier League" style="display:block; width:100%; aspect-ratio:16/10; object-fit:cover; object-position:center 35%;">
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,rgba(10,10,11,0) 60%,rgba(10,10,11,.8));"></div>
+          <figcaption style="position:absolute; left:0; bottom:0; padding:24px 26px; font-family:var(--gl-en); font-weight:800; font-size:18px; color:#F4EFE4;">Precision under pressure <span style="color:#EBB400; font-weight:600; font-size:13px; letter-spacing:.08em;">· FUJAIRAH</span></figcaption>
+        </figure>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <a href="#contact" class="gl-magnetic" style="display:inline-block; text-decoration:none; font-family:var(--gl-en); font-weight:700; font-size:13px; letter-spacing:.08em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:16px 32px; border-radius:2px;">TRAIN FOR THE PODIUM →</a>
+      </div>
     </div>
   </section>
 
@@ -260,8 +380,8 @@
     <div style="max-width:1180px; margin:0 auto;">
       <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:20px; margin-bottom:46px;">
         <div>
-          <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— WEEKLY TIMETABLE</div>
-          <h2 style="font-family:'Anton',sans-serif; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Find your mat time</h2>
+          <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— WEEKLY TIMETABLE</div>
+          <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Find your mat time</h2>
         </div>
         <div style="display:flex; gap:18px; flex-wrap:wrap;">
           <div style="display:flex; align-items:center; gap:8px; font-size:12px; color:#A9A498;"><span style="width:11px;height:11px;border-radius:2px;background:#CFC9BC;"></span>Kids</div>
@@ -273,11 +393,11 @@
       <div style="display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.14); border-radius:6px; overflow:hidden;">
         <sc-for list="{{ schedule }}" as="row" hint-placeholder-count="6">
           <div class="gl-sched-row" style="display:grid; grid-template-columns:90px 1fr; border-bottom:1px solid rgba(255,255,255,.06);">
-            <div style="display:flex; align-items:center; justify-content:center; font-family:'Anton',sans-serif; font-size:22px; color:#EBB400; background:rgba(235,180,0,.05); border-right:1px solid rgba(235,180,0,.12);">{{ row.day }}</div>
+            <div style="display:flex; align-items:center; justify-content:center; font-family:var(--gl-display); font-weight:800; font-size:22px; color:#EBB400; background:rgba(235,180,0,.05); border-right:1px solid rgba(235,180,0,.12);">{{ row.day }}</div>
             <div style="display:flex; flex-wrap:wrap; gap:10px; padding:16px 18px;">
               <sc-for list="{{ row.sessions }}" as="se" hint-placeholder-count="3">
                 <div style="display:flex; flex-direction:column; gap:3px; border:1px solid rgba(255,255,255,.08); border-left:3px solid {{ se.c }}; border-radius:3px; padding:9px 14px; min-width:160px;">
-                  <span style="font-family:'Archivo',sans-serif; font-weight:700; font-size:13.5px; color:#F4EFE4;">{{ se.t }}</span>
+                  <span style="font-family:var(--gl-en); font-weight:700; font-size:13.5px; color:#F4EFE4;">{{ se.t }}</span>
                   <span style="font-size:12px; color:#8E8A80; font-variant-numeric:tabular-nums;">{{ se.time }}</span>
                 </div>
               </sc-for>
@@ -294,24 +414,24 @@
     <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); width:60vw; height:60vw; max-width:720px; max-height:720px; background:radial-gradient(circle, rgba(235,180,0,.12), rgba(235,180,0,0) 60%); pointer-events:none;"></div>
     <div style="position:relative; max-width:1180px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:56px; align-items:center;" class="gl-about">
       <div>
-        <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:18px;">— JOIN THE PRIDE</div>
-        <h2 style="font-family:'Anton',sans-serif; font-size:clamp(40px,5vw,72px); line-height:.95; color:#F4EFE4; text-transform:uppercase;">Your first<br>class is <span style="background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">free.</span></h2>
+        <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:18px;">— JOIN THE PRIDE</div>
+        <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(40px,5vw,72px); line-height:.95; color:#F4EFE4; text-transform:uppercase;">Your first<br>class is <span style="background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent;">free.</span></h2>
         <p style="font-size:16px; line-height:1.8; color:#A9A498; margin-top:22px; max-width:440px;">Walk in, gear up, and feel what training at Golden Lion is like. No commitment, no pressure — just one session to know.</p>
         <div style="display:flex; flex-direction:column; gap:18px; margin-top:34px;">
           <div style="display:flex; align-items:center; gap:14px;">
             <div style="width:42px; height:42px; flex:none; border:1px solid rgba(235,180,0,.3); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#EBB400; font-size:18px;">✆</div>
-            <div><div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:'Archivo',sans-serif;">CALL US</div><div style="font-size:16px; color:#F4EFE4; font-weight:600;">+971 50 123 4567</div></div>
+            <div><div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:var(--gl-en);">CALL US</div><div style="font-size:16px; color:#F4EFE4; font-weight:600;">+974 6003 4169</div></div>
           </div>
           <div style="display:flex; align-items:center; gap:14px;">
             <div style="width:42px; height:42px; flex:none; border:1px solid rgba(235,180,0,.3); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#EBB400; font-size:18px;">⌖</div>
-            <div><div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:'Archivo',sans-serif;">VISIT THE DOJO</div><div style="font-size:16px; color:#F4EFE4; font-weight:600;">Golden Lion Sport Center · Main Hall</div></div>
+            <div><div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:var(--gl-en);">VISIT THE DOJO</div><div style="font-size:16px; color:#F4EFE4; font-weight:600;">Golden Lion Sport Center · Main Hall</div></div>
           </div>
           <div style="display:flex; align-items:center; gap:14px;">
             <div style="width:42px; height:42px; flex:none; border:1px solid rgba(235,180,0,.3); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#EBB400; font-size:18px;">✉</div>
-            <div><div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:'Archivo',sans-serif;">EMAIL</div><div style="font-size:16px; color:#F4EFE4; font-weight:600;">train@goldenlion.club</div></div>
+            <div><div style="font-size:11px; letter-spacing:.16em; color:#8E8A80; font-family:var(--gl-en);">EMAIL</div><div style="font-size:16px; color:#F4EFE4; font-weight:600;">info@goldenlionqa.com</div></div>
           </div>
         </div>
-        <a href="{{ waLink }}" target="_blank" rel="noopener" class="gl-magnetic" style="display:inline-flex; align-items:center; gap:12px; margin-top:30px; text-decoration:none; background:#25D366; color:#fff; font-family:'Archivo',sans-serif; font-weight:800; font-size:13px; letter-spacing:.08em; padding:15px 26px; border-radius:3px;">
+        <a href="{{ waLink }}" target="_blank" rel="noopener" class="gl-magnetic" style="display:inline-flex; align-items:center; gap:12px; margin-top:30px; text-decoration:none; background:#25D366; color:#fff; font-family:var(--gl-en); font-weight:800; font-size:13px; letter-spacing:.08em; padding:15px 26px; border-radius:3px;">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="#fff" style="flex:none;"><path d="M.057 24l1.687-6.163a11.867 11.867 0 01-1.587-5.945C.16 5.335 5.495 0 12.05 0a11.817 11.817 0 018.413 3.488 11.824 11.824 0 013.48 8.414c-.003 6.557-5.338 11.892-11.893 11.892a11.9 11.9 0 01-5.688-1.448L.057 24zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.096 3.2 5.077 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
           CHAT ON WHATSAPP
         </a>
@@ -319,16 +439,16 @@
       <form onSubmit="{{ onSubmit }}" style="border:1px solid rgba(235,180,0,.18); border-radius:8px; padding:34px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0));">
         <div style="display:flex; flex-direction:column; gap:16px;">
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-            <label style="display:flex; flex-direction:column; gap:7px;"><span style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.14em; color:#8E8A80;">FULL NAME</span><input type="text" placeholder="Your name" style="background:#0A0A0B; border:1px solid rgba(255,255,255,.12); border-radius:3px; padding:13px 14px; color:#F4EFE4; font-family:'Manrope',sans-serif; font-size:14px; outline:none;"></label>
-            <label style="display:flex; flex-direction:column; gap:7px;"><span style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.14em; color:#8E8A80;">PHONE</span><input type="tel" placeholder="+971 ..." style="background:#0A0A0B; border:1px solid rgba(255,255,255,.12); border-radius:3px; padding:13px 14px; color:#F4EFE4; font-family:'Manrope',sans-serif; font-size:14px; outline:none;"></label>
+            <label style="display:flex; flex-direction:column; gap:7px;"><span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.14em; color:#8E8A80;">FULL NAME</span><input type="text" placeholder="Your name" style="background:#0A0A0B; border:1px solid rgba(255,255,255,.12); border-radius:3px; padding:13px 14px; color:#F4EFE4; font-family:var(--gl-en); font-size:14px; outline:none;"></label>
+            <label style="display:flex; flex-direction:column; gap:7px;"><span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.14em; color:#8E8A80;">PHONE</span><input type="tel" placeholder="+974 ..." style="background:#0A0A0B; border:1px solid rgba(255,255,255,.12); border-radius:3px; padding:13px 14px; color:#F4EFE4; font-family:var(--gl-en); font-size:14px; outline:none;"></label>
           </div>
-          <label style="display:flex; flex-direction:column; gap:7px;"><span style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.14em; color:#8E8A80;">PROGRAM</span>
-            <select style="background:#0A0A0B; border:1px solid rgba(255,255,255,.12); border-radius:3px; padding:13px 14px; color:#F4EFE4; font-family:'Manrope',sans-serif; font-size:14px; outline:none;">
+          <label style="display:flex; flex-direction:column; gap:7px;"><span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.14em; color:#8E8A80;">PROGRAM</span>
+            <select style="background:#0A0A0B; border:1px solid rgba(255,255,255,.12); border-radius:3px; padding:13px 14px; color:#F4EFE4; font-family:var(--gl-en); font-size:14px; outline:none;">
               <option>Little Lions (4–6)</option><option>Junior Warriors (7–13)</option><option>Adult Karate (14+)</option><option>Competition Squad</option>
             </select>
           </label>
-          <label style="display:flex; flex-direction:column; gap:7px;"><span style="font-family:'Archivo',sans-serif; font-size:11px; letter-spacing:.14em; color:#8E8A80;">MESSAGE</span><textarea rows="3" placeholder="Tell us about yourself / your child" style="background:#0A0A0B; border:1px solid rgba(255,255,255,.12); border-radius:3px; padding:13px 14px; color:#F4EFE4; font-family:'Manrope',sans-serif; font-size:14px; outline:none; resize:vertical;"></textarea></label>
-          <button type="submit" class="gl-magnetic" style="margin-top:6px; cursor:pointer; border:none; font-family:'Archivo',sans-serif; font-weight:800; font-size:13px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:16px; border-radius:3px;">{{ submitLabel }}</button>
+          <label style="display:flex; flex-direction:column; gap:7px;"><span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.14em; color:#8E8A80;">MESSAGE</span><textarea rows="3" placeholder="Tell us about yourself / your child" style="background:#0A0A0B; border:1px solid rgba(255,255,255,.12); border-radius:3px; padding:13px 14px; color:#F4EFE4; font-family:var(--gl-en); font-size:14px; outline:none; resize:vertical;"></textarea></label>
+          <button type="submit" class="gl-magnetic" style="margin-top:6px; cursor:pointer; border:none; font-family:var(--gl-en); font-weight:800; font-size:13px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:16px; border-radius:3px;">{{ submitLabel }}</button>
         </div>
       </form>
     </div>
@@ -341,16 +461,16 @@
         <div style="display:flex; align-items:center; gap:13px;">
           <img src="assets/logo.png" alt="Golden Lion" style="width:52px; height:52px;">
           <span style="display:flex; flex-direction:column; line-height:1;">
-            <span style="font-family:'Archivo',sans-serif; font-weight:900; font-size:16px; letter-spacing:.12em; color:#F4EFE4;">GOLDEN LION</span>
-            <span style="font-family:'Archivo',sans-serif; font-weight:600; font-size:10px; letter-spacing:.4em; color:#EBB400; margin-top:3px;">SPORT CENTER</span>
+            <span style="font-family:var(--gl-en); font-weight:900; font-size:16px; letter-spacing:.12em; color:#F4EFE4;">GOLDEN LION</span>
+            <span style="font-family:var(--gl-en); font-weight:600; font-size:10px; letter-spacing:.4em; color:#EBB400; margin-top:3px;">SPORT CENTER</span>
           </span>
         </div>
-        <p dir="rtl" style="font-family:'Cairo',sans-serif; font-weight:700; font-size:15px; color:#EBB400; margin-top:16px;">جولدن ليون سبورت سنتر</p>
+        <p dir="rtl" style="font-family:var(--gl-ar); font-weight:700; font-size:15px; color:#EBB400; margin-top:16px;">جولدن ليون سبورت سنتر</p>
         <p style="font-size:13.5px; line-height:1.7; color:#8E8A80; margin-top:10px;">Forging discipline, strength and honour — one belt at a time.</p>
       </div>
       <div style="display:flex; gap:64px; flex-wrap:wrap;">
         <div>
-          <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:.2em; color:#EBB400; margin-bottom:16px;">EXPLORE</div>
+          <div style="font-family:var(--gl-en); font-weight:700; font-size:11px; letter-spacing:.2em; color:#EBB400; margin-bottom:16px;">EXPLORE</div>
           <div style="display:flex; flex-direction:column; gap:11px;">
             <a href="#about" style="text-decoration:none; color:#C7C2B6; font-size:14px;">About</a>
             <a href="#programs" style="text-decoration:none; color:#C7C2B6; font-size:14px;">Programs</a>
@@ -359,7 +479,7 @@
           </div>
         </div>
         <div>
-          <div style="font-family:'Archivo',sans-serif; font-weight:700; font-size:11px; letter-spacing:.2em; color:#EBB400; margin-bottom:16px;">FOLLOW</div>
+          <div style="font-family:var(--gl-en); font-weight:700; font-size:11px; letter-spacing:.2em; color:#EBB400; margin-bottom:16px;">FOLLOW</div>
           <div style="display:flex; gap:12px;">
             <a class="gl-social-ic" href="{{ instagramUrl }}" target="_blank" rel="noopener" aria-label="Instagram" style="width:44px; height:44px; display:flex; align-items:center; justify-content:center; border:1px solid rgba(235,180,0,.24); border-radius:8px;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="#C7C2B6"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.72 3.72 0 01-1.38-.9 3.72 3.72 0 01-.9-1.38c-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.12 1.38C1.36 2.68.94 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.12.66.66 1.33 1.08 2.12 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.12-1.38.66-.66 1.08-1.33 1.38-2.12.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.12C20.32 1.36 19.65.94 18.86.63c-.76-.3-1.64-.5-2.91-.56C14.67.01 14.26 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zm0 10.16a4 4 0 110-8 4 4 0 010 8zm7.85-10.41a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/></svg>
@@ -385,7 +505,7 @@
 
 </div>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900},&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;97466718487&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;whatsappMessage&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Hi Golden Lion! I'd like to book a free trial class.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;instagramUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://www.instagram.com/gooldenlion3/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;facebookUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://facebook.com/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;youtubeUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://youtube.com/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;tiktokUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://tiktok.com/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:&quot;100%&quot;,&quot;height&quot;:900},&quot;whatsappNumber&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;97460034169&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;whatsappMessage&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;Hi Golden Lion! I'd like to book a free trial class.&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;instagramUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://www.instagram.com/gooldenlion3/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;facebookUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://facebook.com/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;youtubeUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://youtube.com/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;},&quot;tiktokUrl&quot;:{&quot;editor&quot;:&quot;text&quot;,&quot;default&quot;:&quot;https://tiktok.com/&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Social &amp; Contact&quot;}}">
 class Component extends DCLogic {
   state = { sent: false };
   loadVideo(el) {
@@ -424,10 +544,12 @@ class Component extends DCLogic {
       const groups = [
         ['.gl-about > div', 90],
         ['.gl-pillars > div', 120],
+        ['#founder > div', 0],
         ['#video > div', 0],
         ['.gl-prog-card', 110],
-        ['#coaches figure', 0],
-        ['.gl-gallery > figure', 130],
+        ['.gl-coach-fig', 120],
+        ['.gl-gallery > figure', 110],
+        ['.gl-arena-fig', 110],
         ['#schedule .gl-sched-row', 70],
       ];
       const io = new IntersectionObserver(function(entries){
@@ -447,7 +569,7 @@ class Component extends DCLogic {
 
     // ---- 3D tilt ----
     if (!reduce && hover) {
-      const tilts = root.querySelectorAll('.gl-prog-card, #coaches figure, .gl-gallery figure, .gl-about-img');
+      const tilts = root.querySelectorAll('.gl-prog-card, .gl-coach-fig, .gl-gallery figure, .gl-arena-fig, .gl-about-img, .gl-founder-fig');
       tilts.forEach(function(el){
         el.classList.add('gl-tilt');
         const max = el.classList.contains('gl-prog-card') ? 9 : 6;
@@ -527,7 +649,7 @@ class Component extends DCLogic {
   }
   renderVals() {
     const p = this.props || {};
-    const waNum = (p.whatsappNumber || '971501234567').replace(/[^0-9]/g, '');
+    const waNum = (p.whatsappNumber || '97460034169').replace(/[^0-9]/g, '');
     const waMsg = p.whatsappMessage || "Hi Golden Lion! I'd like to book a free trial class.";
     const waLink = 'https://wa.me/' + waNum + '?text=' + encodeURIComponent(waMsg);
     const waDisplay = '+' + waNum.replace(/^(\d{3})(\d{2})(\d{3})(\d{4}).*$/, '$1 $2 $3 $4');
@@ -563,8 +685,9 @@ class Component extends DCLogic {
       onSubmit: (e) => { e.preventDefault(); this.setState({ sent: true }); },
       navLinks: [
         { label: 'About', href: '#about' },
+        { label: 'Founder', href: '#founder' },
         { label: 'Programs', href: '#programs' },
-        { label: 'Coaches', href: '#coaches' },
+        { label: 'Champions', href: '#arena' },
         { label: 'Schedule', href: '#schedule' },
         { label: 'Contact', href: '#contact' },
       ],
@@ -578,6 +701,17 @@ class Component extends DCLogic {
         { k: '01', t: 'Discipline', d: 'Every session begins and ends with respect. We build the focus that carries into school, work and life.' },
         { k: '02', t: 'Strength', d: 'Conditioning, footwork and kumite drills that forge real, functional power — at any starting point.' },
         { k: '03', t: 'Honour', d: 'The dojo code: humility in victory, dignity in defeat. Character is our true black belt.' },
+      ],
+      founderCreds: [
+        { k: '10+', t: 'YEARS COACHING' },
+        { k: '600+', t: 'STUDENTS LED' },
+        { k: '40+', t: 'MEDALS COACHED' },
+        { k: 'WKF', t: 'SHOTOKAN' },
+      ],
+      coachShots: [
+        { img: 'assets/coaches-spar.jpg', pos: 'center 20%', t: 'Sensei to sensei', tag: 'INSTRUCTORS DRILLING', alt: 'Two Golden Lion instructors sparring in the dojo' },
+        { img: 'assets/founder-spar.jpg', pos: 'center 22%', t: 'Kumite, coached live', tag: 'HEAD COACH', alt: 'Head coach drilling kumite with a student' },
+        { img: 'assets/founder-student.jpg', pos: 'center 22%', t: 'White belt to competitor', tag: 'MENTORSHIP', alt: 'Head coach standing with a senior student' },
       ],
       programs: [
         { tag: 'AGES 4–6', name: 'Little Lions', belt: 'linear-gradient(135deg,#F4F1EA,#CFC9BC)', desc: 'Playful first steps — coordination, listening and confidence through games and basic kata.', items: ['Motor skills & balance', 'Focus & discipline games', 'White → yellow belt path'] },
