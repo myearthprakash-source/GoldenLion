@@ -26,7 +26,7 @@ golden-lion-website/
 
 Hero · About · **Founder & Head Coach** (centered feature built around `founder.jpg`) ·
 Video · Programs · Meet the Senseis · Gallery · **Built for the Arena** (competition) ·
-Schedule · Contact.
+**Pro Shop** (gear & dress for sale) · Schedule · Contact.
 
 It is a **static site** — no build step, no dependencies to install.
 
@@ -66,6 +66,26 @@ npm i -g vercel
 cd golden-lion-website
 vercel
 ```
+
+## The Pro Shop (`#shop`)
+
+Nine products — gi & uniforms, sparring gear, belts and club apparel — plus a
+discounted starter bundle. Each product is drawn as inline gold line-art SVG,
+so the section needs **no product photography** to look finished.
+
+- **Prices / copy / sizes**: edit the `<article class="gl-shop-card">` blocks
+  directly in `index.html` (search for `PRO SHOP`).
+- **Ordering**: every `ORDER →` button becomes a WhatsApp deep-link at runtime,
+  pre-filled with that product's name and price. The message is built in
+  `componentDidMount` from the card's `data-order-name` / `data-order-price`
+  attributes and the `whatsappNumber` prop — so adding a product only means
+  copying a card and setting those two attributes.
+- **Category filter**: the chips filter on each card's `data-cat`
+  (`uniform` · `sparring` · `belts` · `apparel`). Add a category by adding a
+  chip with a matching `data-cat`.
+- **Adding real photos later**: swap the `<svg class="gl-shop-art">` for an
+  `<img>` with the same class and `aspect-ratio:4/3` — the hover zoom and
+  sheen keep working.
 
 ## Customizing contact details
 
