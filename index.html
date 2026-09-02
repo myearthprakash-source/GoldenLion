@@ -61,6 +61,22 @@
   @media (max-width:640px){ .gl-programs{ grid-template-columns:1fr !important } .gl-gallery{ grid-template-columns:1fr !important } .gl-gallery > figure{ grid-column:1 / -1 !important } .gl-arena{ grid-template-columns:1fr !important } .gl-arena-fig{ grid-column:1 / -1 !important } }
   .gl-arena-fig{ transition:transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s ease; }
   .gl-arena-fig:hover{ transform:translateY(-4px); border-color:rgba(235,180,0,.45) !important; }
+  /* ===== Pro shop ===== */
+  .gl-shop-card{ transition:transform .45s cubic-bezier(.16,1,.3,1), border-color .45s ease, box-shadow .45s ease; }
+  .gl-shop-card:hover{ transform:translateY(-9px); border-color:rgba(235,180,0,.5) !important; box-shadow:0 30px 70px rgba(0,0,0,.6); }
+  .gl-shop-art{ transition:transform .7s cubic-bezier(.16,1,.3,1); }
+  .gl-shop-card:hover .gl-shop-art{ transform:scale(1.07) rotate(-1.5deg); }
+  .gl-shop-sheen{ transition:transform 1.1s cubic-bezier(.16,1,.3,1); }
+  .gl-shop-card:hover .gl-shop-sheen{ transform:translateX(420%) !important; }
+  .gl-buy{ transition:filter .3s ease, box-shadow .3s ease, transform .3s cubic-bezier(.16,1,.3,1); }
+  .gl-buy:hover{ filter:brightness(1.07); box-shadow:0 12px 30px rgba(235,180,0,.3); }
+  .gl-chip{ transition:color .3s ease, border-color .3s ease, background .3s ease; }
+  .gl-chip:not(.gl-chip-on):hover{ border-color:rgba(235,180,0,.7) !important; color:#EBB400 !important; background:rgba(235,180,0,.07) !important; }
+  .gl-shop-hide{ display:none !important; }
+  .gl-bundle{ transition:border-color .45s ease, box-shadow .45s ease; }
+  .gl-bundle:hover{ border-color:rgba(235,180,0,.5); box-shadow:0 30px 80px rgba(0,0,0,.55); }
+  @media (max-width:980px){ .gl-shop-grid{ grid-template-columns:repeat(2,1fr) !important } .gl-bundle{ grid-template-columns:1fr !important } .gl-bundle > div:last-child{ text-align:left !important } }
+  @media (max-width:640px){ .gl-shop-grid{ grid-template-columns:1fr !important } .gl-bundle{ padding:30px 24px !important } }
 </style>
 </helmet>
 <div style="background:#0A0A0B; color:#F4EFE4; font-family:var(--gl-en); overflow-x:hidden; position:relative;" ref="{{ onRoot }}">
@@ -375,6 +391,410 @@
     </div>
   </section>
 
+  <!-- ===== PRO SHOP / GEAR ===== -->
+  <section id="shop" style="position:relative; padding:120px 6vw 130px; background:linear-gradient(180deg,#0A0A0B,#0F0F10 45%,#0A0A0B); overflow:hidden;">
+    <div style="position:absolute; top:8%; left:-8%; width:52vw; height:52vw; max-width:680px; max-height:680px; background:radial-gradient(circle, rgba(235,180,0,.10), rgba(235,180,0,0) 62%); pointer-events:none;"></div>
+    <div style="position:absolute; left:-4vw; top:2vw; font-family:var(--gl-display); font-weight:800; font-size:36vw; line-height:.8; color:rgba(235,180,0,.028); pointer-events:none; user-select:none;">具</div>
+
+    <!-- shared gold gradients for the product line-art -->
+    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute;">
+      <defs>
+        <linearGradient id="glGold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#FBE38A"/><stop offset="52%" stopColor="#E7B62E"/><stop offset="100%" stopColor="#B6831A"/>
+        </linearGradient>
+        <linearGradient id="glSteel" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stopColor="#FFFFFF"/><stop offset="100%" stopColor="#9E9A90"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <div style="position:relative; max-width:1180px; margin:0 auto;">
+
+      <!-- header -->
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; flex-wrap:wrap; gap:24px; margin-bottom:34px;">
+        <div>
+          <div style="font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.32em; color:#EBB400; margin-bottom:16px;">— THE PRO SHOP</div>
+          <h2 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(38px,4.6vw,62px); line-height:1; color:#F4EFE4; text-transform:uppercase;">Gear worthy<br>of the <span style="background:linear-gradient(110deg,#B6831A 0%,#FBE38A 25%,#FFF7DA 50%,#FBE38A 75%,#B6831A 100%); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:glshimmer 5s linear infinite;">mat.</span></h2>
+          <p dir="rtl" style="font-family:var(--gl-ar); font-weight:700; font-size:clamp(15px,1.7vw,20px); color:#EBB400; margin-top:14px;">معدات وملابس الكاراتيه — متوفرة الآن</p>
+        </div>
+        <p style="max-width:360px; font-size:15px; line-height:1.7; color:#A9A498;">Everything you train in — fitted, checked and stocked at the dojo counter. WKF-approved competition kit and Golden Lion club wear, available for immediate collection.</p>
+      </div>
+
+      <!-- trust strip -->
+      <div style="display:flex; flex-wrap:wrap; gap:10px 26px; align-items:center; padding:16px 20px; margin-bottom:34px; border:1px solid rgba(235,180,0,.16); border-radius:5px; background:linear-gradient(90deg,rgba(235,180,0,.06),rgba(235,180,0,0));">
+        <span style="display:inline-flex; align-items:center; gap:9px; font-family:var(--gl-en); font-weight:600; font-size:11.5px; letter-spacing:.16em; color:#C7C2B6;"><span style="color:#EBB400;">✦</span>WKF-APPROVED EQUIPMENT</span>
+        <span style="display:inline-flex; align-items:center; gap:9px; font-family:var(--gl-en); font-weight:600; font-size:11.5px; letter-spacing:.16em; color:#C7C2B6;"><span style="color:#EBB400;">✦</span>SIZED &amp; FITTED AT THE DOJO</span>
+        <span style="display:inline-flex; align-items:center; gap:9px; font-family:var(--gl-en); font-weight:600; font-size:11.5px; letter-spacing:.16em; color:#C7C2B6;"><span style="color:#EBB400;">✦</span>MEMBER PRICING</span>
+        <span style="display:inline-flex; align-items:center; gap:9px; font-family:var(--gl-en); font-weight:600; font-size:11.5px; letter-spacing:.16em; color:#C7C2B6;"><span style="color:#EBB400;">✦</span>FREE NAME EMBROIDERY ON BELTS</span>
+      </div>
+
+      <!-- category filter -->
+      <div class="gl-chiprow" style="display:flex; flex-wrap:wrap; gap:10px; margin-bottom:30px;">
+        <button type="button" class="gl-chip gl-chip-on" data-cat="all" style="cursor:pointer; font-family:var(--gl-en); font-weight:700; font-size:11.5px; letter-spacing:.14em; padding:11px 20px; border-radius:2px; border:1px solid transparent; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A);">ALL GEAR</button>
+        <button type="button" class="gl-chip" data-cat="uniform" style="cursor:pointer; font-family:var(--gl-en); font-weight:700; font-size:11.5px; letter-spacing:.14em; padding:11px 20px; border-radius:2px; border:1px solid rgba(235,180,0,.28); color:#C7C2B6; background:transparent;">GI &amp; UNIFORMS</button>
+        <button type="button" class="gl-chip" data-cat="sparring" style="cursor:pointer; font-family:var(--gl-en); font-weight:700; font-size:11.5px; letter-spacing:.14em; padding:11px 20px; border-radius:2px; border:1px solid rgba(235,180,0,.28); color:#C7C2B6; background:transparent;">SPARRING GEAR</button>
+        <button type="button" class="gl-chip" data-cat="belts" style="cursor:pointer; font-family:var(--gl-en); font-weight:700; font-size:11.5px; letter-spacing:.14em; padding:11px 20px; border-radius:2px; border:1px solid rgba(235,180,0,.28); color:#C7C2B6; background:transparent;">BELTS</button>
+        <button type="button" class="gl-chip" data-cat="apparel" style="cursor:pointer; font-family:var(--gl-en); font-weight:700; font-size:11.5px; letter-spacing:.14em; padding:11px 20px; border-radius:2px; border:1px solid rgba(235,180,0,.28); color:#C7C2B6; background:transparent;">CLUB APPAREL</button>
+      </div>
+
+      <!-- product grid -->
+      <div class="gl-shop-grid" style="display:grid; grid-template-columns:repeat(3,1fr); gap:20px;">
+
+        <!-- 1 · Competition Gi -->
+        <article class="gl-shop-card" data-cat="uniform" data-order-name="Golden Lion Competition Gi" data-order-price="QAR 420" style="position:relative; display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.16); border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)); overflow:hidden;">
+          <div style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%, rgba(235,180,0,.13), rgba(10,10,11,0) 66%); border-bottom:1px solid rgba(235,180,0,.1);">
+            <span style="position:absolute; top:14px; left:14px; z-index:3; font-family:var(--gl-en); font-weight:800; font-size:9.5px; letter-spacing:.18em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:6px 11px; border-radius:2px;">FLAGSHIP</span>
+            <span style="position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:7px; font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.14em; color:#7FE3A4;"><span style="width:6px; height:6px; border-radius:50%; background:#3FCF6E; box-shadow:0 0 8px #3FCF6E;"></span>IN STOCK</span>
+            <div class="gl-shop-sheen" style="position:absolute; top:0; bottom:0; left:-60%; width:40%; z-index:2; background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0)); transform:translateX(-120%); pointer-events:none;"></div>
+            <svg class="gl-shop-art" viewBox="0 0 200 150" style="display:block; width:100%; height:auto; aspect-ratio:4/3;" fill="none" stroke="url(#glGold)" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-label="Karate gi jacket">
+              <path d="M78 30 62 38 42 52 52 68 64 58 64 122 136 122 136 58 148 68 158 52 138 38 122 30Z"/>
+              <path d="M78 30 100 80 122 30"/>
+              <path d="M86 29 104 74" opacity=".55"/><path d="M114 29 98 62" opacity=".55"/>
+              <rect x="60" y="92" width="80" height="14" rx="2.5" fill="rgba(235,180,0,.10)"/>
+              <path d="M92 92v14M110 92v14"/>
+              <path d="M95 106 90 132M107 106 113 132"/>
+              <circle cx="74" cy="56" r="7" opacity=".65"/>
+            </svg>
+          </div>
+          <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10px; letter-spacing:.2em; color:#EBB400;">GI &amp; UNIFORMS</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:21px; color:#F4EFE4; margin-top:8px; line-height:1.15;">Competition Gi — 12oz</h3>
+            <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:10px;">WKF-cut heavyweight canvas that snaps on every technique. Embroidered Golden Lion crest on the shoulder.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;">
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">150</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">160</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">170</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">180</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">190</span>
+            </div>
+            <div style="margin-top:auto; padding-top:18px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px;">
+              <div>
+                <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#F4EFE4; line-height:1;">QAR 420</div>
+                <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.1em; color:#EBB400; margin-top:6px;">MEMBERS QAR 375</div>
+              </div>
+              <a class="gl-buy" href="{{ waLink }}" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:11.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:13px 18px; border-radius:2px; white-space:nowrap;">ORDER →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2 · Little Lions Starter Gi -->
+        <article class="gl-shop-card" data-cat="uniform" data-order-name="Little Lions Starter Gi (with white belt)" data-order-price="QAR 165" style="position:relative; display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.16); border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)); overflow:hidden;">
+          <div style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%, rgba(235,180,0,.13), rgba(10,10,11,0) 66%); border-bottom:1px solid rgba(235,180,0,.1);">
+            <span style="position:absolute; top:14px; left:14px; z-index:3; font-family:var(--gl-en); font-weight:800; font-size:9.5px; letter-spacing:.18em; color:#EBB400; border:1px solid rgba(235,180,0,.45); padding:5px 10px; border-radius:2px;">BEGINNER PICK</span>
+            <span style="position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:7px; font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.14em; color:#7FE3A4;"><span style="width:6px; height:6px; border-radius:50%; background:#3FCF6E; box-shadow:0 0 8px #3FCF6E;"></span>IN STOCK</span>
+            <div class="gl-shop-sheen" style="position:absolute; top:0; bottom:0; left:-60%; width:40%; z-index:2; background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0)); transform:translateX(-120%); pointer-events:none;"></div>
+            <svg class="gl-shop-art" viewBox="0 0 200 150" style="display:block; width:100%; height:auto; aspect-ratio:4/3;" fill="none" stroke="url(#glGold)" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-label="Folded karate uniform with belt">
+              <rect x="46" y="46" width="92" height="26" rx="4"/>
+              <rect x="52" y="72" width="86" height="26" rx="4" fill="rgba(235,180,0,.07)"/>
+              <rect x="58" y="98" width="80" height="26" rx="4"/>
+              <path d="M92 46v26M92 72v26M92 98v26" opacity=".5"/>
+              <circle cx="150" cy="104" r="18"/>
+              <circle cx="150" cy="104" r="7" opacity=".6"/>
+              <path d="M132 104h36" opacity=".35"/>
+            </svg>
+          </div>
+          <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10px; letter-spacing:.2em; color:#EBB400;">GI &amp; UNIFORMS</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:21px; color:#F4EFE4; margin-top:8px; line-height:1.15;">Little Lions Starter Gi</h3>
+            <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:10px;">Light 8oz cotton blend built for first classes — soft, breathable and easy to wash. White belt included.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;">
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">100</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">110</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">120</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">130</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">140</span>
+            </div>
+            <div style="margin-top:auto; padding-top:18px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px;">
+              <div>
+                <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#F4EFE4; line-height:1;">QAR 165</div>
+                <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.1em; color:#EBB400; margin-top:6px;">BELT INCLUDED</div>
+              </div>
+              <a class="gl-buy" href="{{ waLink }}" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:11.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:13px 18px; border-radius:2px; white-space:nowrap;">ORDER →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3 · Kumite mitts -->
+        <article class="gl-shop-card" data-cat="sparring" data-order-name="WKF Kumite Mitts (pair)" data-order-price="QAR 130" style="position:relative; display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.16); border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)); overflow:hidden;">
+          <div style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%, rgba(235,180,0,.13), rgba(10,10,11,0) 66%); border-bottom:1px solid rgba(235,180,0,.1);">
+            <span style="position:absolute; top:14px; left:14px; z-index:3; font-family:var(--gl-en); font-weight:800; font-size:9.5px; letter-spacing:.18em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:6px 11px; border-radius:2px;">BEST SELLER</span>
+            <span style="position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:7px; font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.14em; color:#7FE3A4;"><span style="width:6px; height:6px; border-radius:50%; background:#3FCF6E; box-shadow:0 0 8px #3FCF6E;"></span>IN STOCK</span>
+            <div class="gl-shop-sheen" style="position:absolute; top:0; bottom:0; left:-60%; width:40%; z-index:2; background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0)); transform:translateX(-120%); pointer-events:none;"></div>
+            <svg class="gl-shop-art" viewBox="0 0 200 150" style="display:block; width:100%; height:auto; aspect-ratio:4/3;" fill="none" stroke="url(#glGold)" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-label="Karate sparring mitts">
+              <path d="M96 36h34a26 26 0 0 1 26 26v22a20 20 0 0 1-20 20h-40a20 20 0 0 1-20-20V62a26 26 0 0 1 20-26Z" fill="rgba(235,180,0,.07)"/>
+              <path d="M76 66a14 14 0 0 0-14 14v6a12 12 0 0 0 12 12h8"/>
+              <path d="M96 104h40v14a8 8 0 0 1-8 8h-24a8 8 0 0 1-8-8Z"/>
+              <path d="M108 40v26M124 40v26M140 44v22" opacity=".5"/>
+              <path d="M52 52a30 30 0 0 1 22-16" opacity=".45"/>
+              <path d="M46 74a26 26 0 0 1 8-18" opacity=".3"/>
+            </svg>
+          </div>
+          <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10px; letter-spacing:.2em; color:#EBB400;">SPARRING GEAR</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:21px; color:#F4EFE4; margin-top:8px; line-height:1.15;">Kumite Mitts — WKF</h3>
+            <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:10px;">Approved red/blue competition pair with moulded knuckle padding and a locked elastic wrist.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;">
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">S</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">M</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">L</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">RED + BLUE</span>
+            </div>
+            <div style="margin-top:auto; padding-top:18px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px;">
+              <div>
+                <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#F4EFE4; line-height:1;">QAR 130</div>
+                <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.1em; color:#EBB400; margin-top:6px;">PAIR · MEMBERS QAR 115</div>
+              </div>
+              <a class="gl-buy" href="{{ waLink }}" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:11.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:13px 18px; border-radius:2px; white-space:nowrap;">ORDER →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4 · Shin & instep guards -->
+        <article class="gl-shop-card" data-cat="sparring" data-order-name="Shin &amp; Instep Guards" data-order-price="QAR 145" style="position:relative; display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.16); border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)); overflow:hidden;">
+          <div style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%, rgba(235,180,0,.13), rgba(10,10,11,0) 66%); border-bottom:1px solid rgba(235,180,0,.1);">
+            <span style="position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:7px; font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.14em; color:#7FE3A4;"><span style="width:6px; height:6px; border-radius:50%; background:#3FCF6E; box-shadow:0 0 8px #3FCF6E;"></span>IN STOCK</span>
+            <div class="gl-shop-sheen" style="position:absolute; top:0; bottom:0; left:-60%; width:40%; z-index:2; background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0)); transform:translateX(-120%); pointer-events:none;"></div>
+            <svg class="gl-shop-art" viewBox="0 0 200 150" style="display:block; width:100%; height:auto; aspect-ratio:4/3;" fill="none" stroke="url(#glGold)" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-label="Shin and instep guards">
+              <path d="M74 26h30a12 12 0 0 1 12 12v58a14 14 0 0 1-6 11l-14 10a10 10 0 0 1-16-8V38a12 12 0 0 1-6-12Z" fill="rgba(235,180,0,.07)"/>
+              <path d="M74 44h42M74 62h42M74 80h42" opacity=".5"/>
+              <path d="M80 118 74 134h30l-6-16" />
+              <path d="M132 40h18a10 10 0 0 1 10 10v46a12 12 0 0 1-5 10l-11 8a8 8 0 0 1-13-7V50a10 10 0 0 1 1-10Z" opacity=".45"/>
+              <path d="M132 58h28M132 76h28" opacity=".3"/>
+            </svg>
+          </div>
+          <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10px; letter-spacing:.2em; color:#EBB400;">SPARRING GEAR</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:21px; color:#F4EFE4; margin-top:8px; line-height:1.15;">Shin &amp; Instep Guards</h3>
+            <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:10px;">One-piece foam shell that stays put through a full round of kumite. Required for junior gradings.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;">
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">XS</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">S</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">M</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">L</span>
+            </div>
+            <div style="margin-top:auto; padding-top:18px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px;">
+              <div>
+                <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#F4EFE4; line-height:1;">QAR 145</div>
+                <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.1em; color:#EBB400; margin-top:6px;">PAIR · RED OR BLUE</div>
+              </div>
+              <a class="gl-buy" href="{{ waLink }}" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:11.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:13px 18px; border-radius:2px; white-space:nowrap;">ORDER →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5 · Head guard -->
+        <article class="gl-shop-card" data-cat="sparring" data-order-name="Competition Head Guard" data-order-price="QAR 210" style="position:relative; display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.16); border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)); overflow:hidden;">
+          <div style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%, rgba(235,180,0,.13), rgba(10,10,11,0) 66%); border-bottom:1px solid rgba(235,180,0,.1);">
+            <span style="position:absolute; top:14px; left:14px; z-index:3; font-family:var(--gl-en); font-weight:800; font-size:9.5px; letter-spacing:.18em; color:#EBB400; border:1px solid rgba(235,180,0,.45); padding:5px 10px; border-radius:2px;">NEW ARRIVAL</span>
+            <span style="position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:7px; font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.14em; color:#EBB400;"><span style="width:6px; height:6px; border-radius:50%; background:#EBB400; box-shadow:0 0 8px #EBB400;"></span>LOW STOCK</span>
+            <div class="gl-shop-sheen" style="position:absolute; top:0; bottom:0; left:-60%; width:40%; z-index:2; background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0)); transform:translateX(-120%); pointer-events:none;"></div>
+            <svg class="gl-shop-art" viewBox="0 0 200 150" style="display:block; width:100%; height:auto; aspect-ratio:4/3;" fill="none" stroke="url(#glGold)" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-label="Karate head guard">
+              <path d="M100 26c30 0 46 22 46 50s-16 48-46 48-46-20-46-48 16-50 46-50Z" fill="rgba(235,180,0,.07)"/>
+              <path d="M76 62c8-10 40-10 48 0v30c-8 12-40 12-48 0Z"/>
+              <path d="M54 72c-8 2-10 18-2 24M146 72c8 2 10 18 2 24"/>
+              <path d="M76 92c14 8 34 8 48 0" opacity=".5"/>
+              <path d="M100 26v14" opacity=".4"/>
+            </svg>
+          </div>
+          <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10px; letter-spacing:.2em; color:#EBB400;">SPARRING GEAR</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:21px; color:#F4EFE4; margin-top:8px; line-height:1.15;">Competition Head Guard</h3>
+            <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:10px;">High-density padding with an open face for full vision — the exact model our squad wears at Karate1.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;">
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">S</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">M</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">L</span>
+            </div>
+            <div style="margin-top:auto; padding-top:18px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px;">
+              <div>
+                <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#F4EFE4; line-height:1;">QAR 210</div>
+                <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.1em; color:#EBB400; margin-top:6px;">MEMBERS QAR 189</div>
+              </div>
+              <a class="gl-buy" href="{{ waLink }}" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:11.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:13px 18px; border-radius:2px; white-space:nowrap;">ORDER →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 6 · Ranked belt -->
+        <article class="gl-shop-card" data-cat="belts" data-order-name="Ranked Obi Belt (embroidered)" data-order-price="QAR 60" style="position:relative; display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.16); border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)); overflow:hidden;">
+          <div style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%, rgba(235,180,0,.13), rgba(10,10,11,0) 66%); border-bottom:1px solid rgba(235,180,0,.1);">
+            <span style="position:absolute; top:14px; left:14px; z-index:3; font-family:var(--gl-en); font-weight:800; font-size:9.5px; letter-spacing:.18em; color:#EBB400; border:1px solid rgba(235,180,0,.45); padding:5px 10px; border-radius:2px;">FREE EMBROIDERY</span>
+            <span style="position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:7px; font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.14em; color:#7FE3A4;"><span style="width:6px; height:6px; border-radius:50%; background:#3FCF6E; box-shadow:0 0 8px #3FCF6E;"></span>ALL GRADES</span>
+            <div class="gl-shop-sheen" style="position:absolute; top:0; bottom:0; left:-60%; width:40%; z-index:2; background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0)); transform:translateX(-120%); pointer-events:none;"></div>
+            <svg class="gl-shop-art" viewBox="0 0 200 150" style="display:block; width:100%; height:auto; aspect-ratio:4/3;" fill="none" stroke="url(#glGold)" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-label="Karate belt tied in a knot">
+              <path d="M24 54h58v26H24a13 13 0 0 1 0-26Z" fill="rgba(235,180,0,.07)"/>
+              <path d="M176 54h-58v26h58a13 13 0 0 0 0-26Z" fill="rgba(235,180,0,.07)"/>
+              <rect x="76" y="46" width="48" height="40" rx="7" fill="rgba(235,180,0,.14)"/>
+              <path d="M90 46v40M110 46v40" opacity=".4"/>
+              <path d="M84 86 74 124l18 5 8-43Z"/>
+              <path d="M116 86l10 38-18 5-8-43Z"/>
+              <path d="M38 62h32M130 62h32" opacity=".38" strokeDasharray="4 5"/>
+            </svg>
+          </div>
+          <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10px; letter-spacing:.2em; color:#EBB400;">BELTS</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:21px; color:#F4EFE4; margin-top:8px; line-height:1.15;">Ranked Obi Belt</h3>
+            <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:10px;">Double-stitched cotton in every grade colour, with your name embroidered in gold thread — on us.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:7px; margin-top:14px;">
+              <span title="White" style="width:20px; height:20px; border-radius:3px; background:#F4F1EA; border:1px solid rgba(255,255,255,.2);"></span>
+              <span title="Yellow" style="width:20px; height:20px; border-radius:3px; background:#F2C21B;"></span>
+              <span title="Orange" style="width:20px; height:20px; border-radius:3px; background:#E2762A;"></span>
+              <span title="Green" style="width:20px; height:20px; border-radius:3px; background:#2F9E5B;"></span>
+              <span title="Blue" style="width:20px; height:20px; border-radius:3px; background:#2C6FD1;"></span>
+              <span title="Purple" style="width:20px; height:20px; border-radius:3px; background:#7B3FBF;"></span>
+              <span title="Brown" style="width:20px; height:20px; border-radius:3px; background:#6B4326;"></span>
+            </div>
+            <div style="margin-top:auto; padding-top:18px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px;">
+              <div>
+                <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#F4EFE4; line-height:1;">QAR 60</div>
+                <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.1em; color:#EBB400; margin-top:6px;">SIZES 000 – 6</div>
+              </div>
+              <a class="gl-buy" href="{{ waLink }}" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:11.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:13px 18px; border-radius:2px; white-space:nowrap;">ORDER →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 7 · Dan black belt -->
+        <article class="gl-shop-card" data-cat="belts" data-order-name="Dan Grade Black Belt (satin, gold thread)" data-order-price="QAR 190" style="position:relative; display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.16); border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)); overflow:hidden;">
+          <div style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%, rgba(235,180,0,.13), rgba(10,10,11,0) 66%); border-bottom:1px solid rgba(235,180,0,.1);">
+            <span style="position:absolute; top:14px; left:14px; z-index:3; font-family:var(--gl-en); font-weight:800; font-size:9.5px; letter-spacing:.18em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:6px 11px; border-radius:2px;">MADE TO ORDER</span>
+            <span style="position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:7px; font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.14em; color:#EBB400;"><span style="width:6px; height:6px; border-radius:50%; background:#EBB400; box-shadow:0 0 8px #EBB400;"></span>10-DAY CRAFT</span>
+            <div class="gl-shop-sheen" style="position:absolute; top:0; bottom:0; left:-60%; width:40%; z-index:2; background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0)); transform:translateX(-120%); pointer-events:none;"></div>
+            <svg class="gl-shop-art" viewBox="0 0 200 150" style="display:block; width:100%; height:auto; aspect-ratio:4/3;" fill="none" stroke="url(#glGold)" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-label="Black belt with gold embroidery">
+              <circle cx="76" cy="74" r="44" fill="rgba(235,180,0,.07)"/>
+              <circle cx="76" cy="74" r="26" opacity=".7"/>
+              <circle cx="76" cy="74" r="9" opacity=".45"/>
+              <path d="M118 60h52v28h-52"/>
+              <path d="M170 60v28" opacity=".55"/>
+              <path d="M128 68h32M128 80h22" strokeDasharray="3 5"/>
+              <path d="M174 62v24M179 65v18" opacity=".45"/>
+            </svg>
+          </div>
+          <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10px; letter-spacing:.2em; color:#EBB400;">BELTS</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:21px; color:#F4EFE4; margin-top:8px; line-height:1.15;">Dan Grade Black Belt</h3>
+            <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:10px;">Satin-finished, hand-embroidered with your name and Dan rank in gold. Earned, then made for you.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;">
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">EN + AR EMBROIDERY</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">1ST – 5TH DAN</span>
+            </div>
+            <div style="margin-top:auto; padding-top:18px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px;">
+              <div>
+                <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#F4EFE4; line-height:1;">QAR 190</div>
+                <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.1em; color:#EBB400; margin-top:6px;">GIFT BOXED</div>
+              </div>
+              <a class="gl-buy" href="{{ waLink }}" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:11.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:13px 18px; border-radius:2px; white-space:nowrap;">ORDER →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 8 · Team tracksuit -->
+        <article class="gl-shop-card" data-cat="apparel" data-order-name="Golden Lion Team Tracksuit" data-order-price="QAR 320" style="position:relative; display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.16); border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)); overflow:hidden;">
+          <div style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%, rgba(235,180,0,.13), rgba(10,10,11,0) 66%); border-bottom:1px solid rgba(235,180,0,.1);">
+            <span style="position:absolute; top:14px; left:14px; z-index:3; font-family:var(--gl-en); font-weight:800; font-size:9.5px; letter-spacing:.18em; color:#EBB400; border:1px solid rgba(235,180,0,.45); padding:5px 10px; border-radius:2px;">SQUAD KIT</span>
+            <span style="position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:7px; font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.14em; color:#7FE3A4;"><span style="width:6px; height:6px; border-radius:50%; background:#3FCF6E; box-shadow:0 0 8px #3FCF6E;"></span>IN STOCK</span>
+            <div class="gl-shop-sheen" style="position:absolute; top:0; bottom:0; left:-60%; width:40%; z-index:2; background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0)); transform:translateX(-120%); pointer-events:none;"></div>
+            <svg class="gl-shop-art" viewBox="0 0 200 150" style="display:block; width:100%; height:auto; aspect-ratio:4/3;" fill="none" stroke="url(#glGold)" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-label="Team tracksuit jacket">
+              <path d="M78 26 54 38 44 100 62 106 68 84 68 130 132 130 132 84 138 106 156 100 146 38 122 26Z" fill="rgba(235,180,0,.06)"/>
+              <path d="M78 26 100 46 122 26"/>
+              <path d="M100 46v84" strokeDasharray="6 5"/>
+              <rect x="95" y="52" width="10" height="12" rx="3"/>
+              <path d="M76 90v40M124 90v40" opacity=".32"/>
+              <path d="M78 106h14M108 106h14" opacity=".5"/>
+              <path d="M86 26c4 8 24 8 28 0" opacity=".5"/>
+            </svg>
+          </div>
+          <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10px; letter-spacing:.2em; color:#EBB400;">CLUB APPAREL</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:21px; color:#F4EFE4; margin-top:8px; line-height:1.15;">Team Tracksuit</h3>
+            <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:10px;">Black and gold warm-up set worn on every podium trip — brushed inner, zip pockets, name on the back.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;">
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">KIDS 6–14</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">S</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">M</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">L</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">XL</span>
+            </div>
+            <div style="margin-top:auto; padding-top:18px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px;">
+              <div>
+                <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#F4EFE4; line-height:1;">QAR 320</div>
+                <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.1em; color:#EBB400; margin-top:6px;">JACKET + PANTS</div>
+              </div>
+              <a class="gl-buy" href="{{ waLink }}" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:11.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:13px 18px; border-radius:2px; white-space:nowrap;">ORDER →</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 9 · Gear bag -->
+        <article class="gl-shop-card" data-cat="apparel" data-order-name="Golden Lion Gear Bag" data-order-price="QAR 175" style="position:relative; display:flex; flex-direction:column; border:1px solid rgba(235,180,0,.16); border-radius:8px; background:linear-gradient(180deg,rgba(255,255,255,.03),rgba(255,255,255,0)); overflow:hidden;">
+          <div style="position:relative; overflow:hidden; background:radial-gradient(circle at 50% 42%, rgba(235,180,0,.13), rgba(10,10,11,0) 66%); border-bottom:1px solid rgba(235,180,0,.1);">
+            <span style="position:absolute; top:14px; right:14px; z-index:3; display:inline-flex; align-items:center; gap:7px; font-family:var(--gl-en); font-weight:600; font-size:9.5px; letter-spacing:.14em; color:#7FE3A4;"><span style="width:6px; height:6px; border-radius:50%; background:#3FCF6E; box-shadow:0 0 8px #3FCF6E;"></span>IN STOCK</span>
+            <div class="gl-shop-sheen" style="position:absolute; top:0; bottom:0; left:-60%; width:40%; z-index:2; background:linear-gradient(100deg,rgba(255,255,255,0),rgba(255,255,255,.09),rgba(255,255,255,0)); transform:translateX(-120%); pointer-events:none;"></div>
+            <svg class="gl-shop-art" viewBox="0 0 200 150" style="display:block; width:100%; height:auto; aspect-ratio:4/3;" fill="none" stroke="url(#glGold)" strokeWidth="2.1" strokeLinecap="round" strokeLinejoin="round" aria-label="Karate gear bag">
+              <rect x="34" y="60" width="132" height="60" rx="16" fill="rgba(235,180,0,.06)"/>
+              <path d="M34 80h132" opacity=".32"/>
+              <path d="M76 60c0-16 10-24 24-24s24 8 24 24"/>
+              <path d="M84 60c0-11 6-17 16-17s16 6 16 17" opacity=".5"/>
+              <rect x="110" y="88" width="42" height="24" rx="6" opacity=".55"/>
+              <path d="M48 96h38" strokeDasharray="4 6" opacity=".5"/>
+              <circle cx="62" cy="76" r="4" opacity=".55"/>
+            </svg>
+          </div>
+          <div style="padding:22px 22px 24px; display:flex; flex-direction:column; flex:1;">
+            <div style="font-family:var(--gl-en); font-weight:700; font-size:10px; letter-spacing:.2em; color:#EBB400;">CLUB APPAREL</div>
+            <h3 style="font-family:var(--gl-en); font-weight:800; font-size:21px; color:#F4EFE4; margin-top:8px; line-height:1.15;">Golden Lion Gear Bag</h3>
+            <p style="font-size:13.5px; line-height:1.65; color:#A9A498; margin-top:10px;">Vented duffel that swallows a full kit — gi, mitts, guards and a water bottle — with a ventilated shoe pocket.</p>
+            <div style="display:flex; flex-wrap:wrap; gap:6px; margin-top:14px;">
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">42L</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">SHOULDER STRAP</span>
+              <span style="font-family:var(--gl-en); font-size:10.5px; letter-spacing:.1em; color:#C7C2B6; border:1px solid rgba(255,255,255,.14); padding:5px 9px; border-radius:2px;">NAME PRINT</span>
+            </div>
+            <div style="margin-top:auto; padding-top:18px; display:flex; align-items:flex-end; justify-content:space-between; gap:14px;">
+              <div>
+                <div style="font-family:var(--gl-display); font-weight:800; font-size:26px; color:#F4EFE4; line-height:1;">QAR 175</div>
+                <div style="font-family:var(--gl-en); font-weight:600; font-size:11px; letter-spacing:.1em; color:#EBB400; margin-top:6px;">MEMBERS QAR 155</div>
+              </div>
+              <a class="gl-buy" href="{{ waLink }}" target="_blank" rel="noopener" style="text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:11.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:13px 18px; border-radius:2px; white-space:nowrap;">ORDER →</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <!-- empty state (shown by JS when a filter has no matches) -->
+      <p class="gl-shop-empty" style="display:none; text-align:center; font-size:15px; color:#8E8A80; padding:40px 0;">Nothing in this category right now — message us and we’ll source it.</p>
+
+      <!-- starter bundle -->
+      <div class="gl-bundle" data-order-name="White Belt Starter Pack (Gi + belt + tee + bag)" data-order-price="QAR 545" style="position:relative; margin-top:22px; display:grid; grid-template-columns:1.35fr .9fr; gap:34px; align-items:center; border:1px solid rgba(235,180,0,.28); border-radius:10px; padding:38px 40px; background:linear-gradient(120deg,rgba(235,180,0,.10),rgba(235,180,0,.02) 52%,rgba(255,255,255,0)); overflow:hidden;">
+        <div style="position:absolute; right:-10%; top:-60%; width:420px; height:420px; background:radial-gradient(circle, rgba(235,180,0,.16), rgba(235,180,0,0) 62%); pointer-events:none;"></div>
+        <div style="position:relative;">
+          <div style="font-family:var(--gl-en); font-weight:700; font-size:11px; letter-spacing:.28em; color:#EBB400; margin-bottom:14px;">— DAY-ONE BUNDLE</div>
+          <h3 style="font-family:var(--gl-display); font-weight:800; font-size:clamp(28px,3.2vw,42px); line-height:1.02; color:#F4EFE4; text-transform:uppercase;">The White Belt<br>Starter Pack</h3>
+          <p style="font-size:15px; line-height:1.75; color:#A9A498; margin-top:16px; max-width:520px;">Everything a new student walks in with: a fitted gi, an embroidered belt, a Golden Lion training tee and the gear bag to carry it. Sized on the spot at the dojo counter.</p>
+          <div style="display:flex; flex-wrap:wrap; gap:10px; margin-top:20px;">
+            <span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.12em; color:#EBB400; border:1px solid rgba(235,180,0,.4); padding:8px 14px; border-radius:2px;">GI</span>
+            <span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.12em; color:#EBB400; border:1px solid rgba(235,180,0,.4); padding:8px 14px; border-radius:2px;">EMBROIDERED BELT</span>
+            <span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.12em; color:#EBB400; border:1px solid rgba(235,180,0,.4); padding:8px 14px; border-radius:2px;">CLUB TEE</span>
+            <span style="font-family:var(--gl-en); font-size:11px; letter-spacing:.12em; color:#EBB400; border:1px solid rgba(235,180,0,.4); padding:8px 14px; border-radius:2px;">GEAR BAG</span>
+          </div>
+        </div>
+        <div style="position:relative; text-align:right;">
+          <div style="font-family:var(--gl-en); font-weight:600; font-size:14px; color:#8E8A80; text-decoration:line-through;">QAR 645</div>
+          <div style="font-family:var(--gl-display); font-weight:800; font-size:clamp(44px,5.4vw,66px); line-height:1; background:linear-gradient(110deg,#B6831A 0%,#FBE38A 25%,#FFF7DA 50%,#FBE38A 75%,#B6831A 100%); background-size:200% auto; -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; animation:glshimmer 5s linear infinite; margin-top:4px;">QAR 545</div>
+          <div style="font-family:var(--gl-en); font-weight:700; font-size:11px; letter-spacing:.18em; color:#EBB400; margin-top:8px;">SAVE QAR 100</div>
+          <a class="gl-buy gl-magnetic" href="{{ waLink }}" target="_blank" rel="noopener" style="display:inline-block; margin-top:20px; text-decoration:none; font-family:var(--gl-en); font-weight:800; font-size:12.5px; letter-spacing:.1em; color:#0A0A0B; background:linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A); padding:16px 28px; border-radius:2px;">RESERVE THE PACK →</a>
+        </div>
+      </div>
+
+      <!-- shop footnote -->
+      <div style="display:flex; flex-wrap:wrap; justify-content:space-between; align-items:center; gap:16px; margin-top:26px; padding-top:22px; border-top:1px solid rgba(255,255,255,.07);">
+        <p style="font-size:13.5px; line-height:1.7; color:#8E8A80; max-width:620px;">Prices in Qatari Riyal, including VAT. Order on WhatsApp and collect at the dojo, or ask a coach to size you before your next session. Delivery across Doha on request.</p>
+        <a href="{{ waLink }}" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:10px; text-decoration:none; font-family:var(--gl-en); font-weight:700; font-size:12px; letter-spacing:.1em; color:#EBB400; border:1px solid rgba(235,180,0,.4); padding:13px 22px; border-radius:2px; white-space:nowrap;">ASK ABOUT SIZING →</a>
+      </div>
+
+    </div>
+  </section>
+
   <!-- ===== SCHEDULE ===== -->
   <section id="schedule" style="position:relative; padding:110px 6vw; background:linear-gradient(180deg,#0A0A0B,#0E0E0F 50%,#0A0A0B);">
     <div style="max-width:1180px; margin:0 auto;">
@@ -475,6 +895,7 @@
             <a href="#about" style="text-decoration:none; color:#C7C2B6; font-size:14px;">About</a>
             <a href="#programs" style="text-decoration:none; color:#C7C2B6; font-size:14px;">Programs</a>
             <a href="#coaches" style="text-decoration:none; color:#C7C2B6; font-size:14px;">Coaches</a>
+            <a href="#shop" style="text-decoration:none; color:#C7C2B6; font-size:14px;">Pro Shop</a>
             <a href="#schedule" style="text-decoration:none; color:#C7C2B6; font-size:14px;">Schedule</a>
           </div>
         </div>
@@ -550,6 +971,8 @@ class Component extends DCLogic {
         ['.gl-coach-fig', 120],
         ['.gl-gallery > figure', 110],
         ['.gl-arena-fig', 110],
+        ['.gl-shop-card', 90],
+        ['.gl-bundle', 0],
         ['#schedule .gl-sched-row', 70],
       ];
       const io = new IntersectionObserver(function(entries){
@@ -623,6 +1046,46 @@ class Component extends DCLogic {
       stats.forEach(function(s){ cio.observe(s); });
     }
 
+    // ---- Pro shop: per-product WhatsApp orders + category filter ----
+    const shop = root.querySelector('#shop');
+    if (shop) {
+      const shopNum = ((this.props && this.props.whatsappNumber) || '97460034169').replace(/[^0-9]/g, '');
+      root.querySelectorAll('[data-order-name]').forEach(function(item){
+        const name = item.getAttribute('data-order-name') || '';
+        const price = item.getAttribute('data-order-price') || '';
+        const msg = 'Hi Golden Lion! I\u2019d like to order the ' + name + (price ? ' (' + price + ')' : '') + '. Is it available in my size?';
+        item.querySelectorAll('.gl-buy').forEach(function(btn){
+          btn.setAttribute('href', 'https://wa.me/' + shopNum + '?text=' + encodeURIComponent(msg));
+        });
+      });
+
+      const chips = shop.querySelectorAll('.gl-chip');
+      const cards = shop.querySelectorAll('.gl-shop-card');
+      const empty = shop.querySelector('.gl-shop-empty');
+      chips.forEach(function(chip){
+        chip.addEventListener('click', function(){
+          const cat = chip.getAttribute('data-cat');
+          chips.forEach(function(c){
+            const on = c === chip;
+            c.classList.toggle('gl-chip-on', on);
+            c.style.background = on ? 'linear-gradient(135deg,#FBE38A,#E7B62E 55%,#B6831A)' : 'transparent';
+            c.style.color = on ? '#0A0A0B' : '#C7C2B6';
+            c.style.borderColor = on ? 'transparent' : 'rgba(235,180,0,.28)';
+          });
+          let shown = 0;
+          cards.forEach(function(card){
+            const show = cat === 'all' || card.getAttribute('data-cat') === cat;
+            card.classList.toggle('gl-shop-hide', !show);
+            if (show) {
+              shown++;
+              if (!reduce) { card.style.animation = 'none'; void card.offsetWidth; card.style.animation = 'glrise .55s cubic-bezier(.16,1,.3,1) both'; }
+            }
+          });
+          if (empty) empty.style.display = shown ? 'none' : 'block';
+        });
+      });
+    }
+
     // ---- Cursor glow + magnetic buttons ----
     if (!reduce && hover) {
       const glow = this._glow;
@@ -688,6 +1151,7 @@ class Component extends DCLogic {
         { label: 'Founder', href: '#founder' },
         { label: 'Programs', href: '#programs' },
         { label: 'Champions', href: '#arena' },
+        { label: 'Shop', href: '#shop' },
         { label: 'Schedule', href: '#schedule' },
         { label: 'Contact', href: '#contact' },
       ],
